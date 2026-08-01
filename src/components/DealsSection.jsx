@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Truck, ShieldCheck, RefreshCcw, BadgeCheck, Flame } from 'lucide-react';
-import { dealsProducts, trustItems } from '../mock/mock';
+import { Link } from 'react-router-dom';
+import { Truck, ShieldCheck, RefreshCcw, BadgeCheck } from 'lucide-react';
+import { dealsProducts as fallbackDealsProducts, trustItems } from '../mock/mock';
 import ProductCard from './ProductCard';
 import useCarousel from '../hooks/useCarousel';
 import { NavArrow, Dots } from './CarouselControls';
+import { useProducts } from '../context/ProductContext';
 
 const getTarget = () => {
   const saved = localStorage.getItem('rgms_deal_target');
@@ -84,6 +86,8 @@ export const TrustBar = () => (
 );
 
 const DealsSection = () => {
+  const { dealsProductsList } = useProducts();
+  const activeDeals = dealsProductsList && dealsProductsList.length > 0 ? dealsProductsList : fallbackDealsProducts;
   const carousel = useCarousel({ autoplay: false });
 
   return (
@@ -101,29 +105,35 @@ const DealsSection = () => {
           <Countdown />
         </div>
 
-        <div className="relative">
-          <NavArrow dir="left" onClick={carousel.prev} className="absolute -left-3 lg:-left-5 top-[38%] -translate-y-1/2 z-10 hidden sm:flex" />
-          <div
-            {...carousel.scrollerProps}
-            className="flex gap-4 sm:gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 sm:mx-0 px-4 sm:px-0 pb-3 focus:outline-none"
-            aria-label="Featured deals"
-            data-testid="deals-scroller"
-          >
-            {dealsProducts.map((p) => (
-              <div key={p.id} data-slide className="w-[82vw] sm:w-[280px] md:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] flex-none snap-start">
-                <ProductCard product={p} />
-              </div>
-            ))}
+        {activeDeals.length === 0 ? (
+          <div className="bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm text-slate-500 font-bold text-xs sm:text-sm">
+            No deal products currently listed. Add or flag products in the Admin Panel to display here!
           </div>
-          <NavArrow dir="right" onClick={carousel.next} className="absolute -right-3 lg:-right-5 top-[38%] -translate-y-1/2 z-10 hidden sm:flex" />
-        </div>
+        ) : (
+          <div className="relative">
+            <NavArrow dir="left" onClick={carousel.prev} className="absolute -left-3 lg:-left-5 top-[38%] -translate-y-1/2 z-10 hidden sm:flex" />
+            <div
+              {...carousel.scrollerProps}
+              className="flex gap-4 sm:gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 sm:mx-0 px-4 sm:px-0 pb-3 focus:outline-none"
+              aria-label="Featured deals"
+              data-testid="deals-scroller"
+            >
+              {activeDeals.map((p) => (
+                <div key={p.id} data-slide className="w-[82vw] sm:w-[280px] md:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] flex-none snap-start">
+                  <ProductCard product={p} />
+                </div>
+              ))}
+            </div>
+            <NavArrow dir="right" onClick={carousel.next} className="absolute -right-3 lg:-right-5 top-[38%] -translate-y-1/2 z-10 hidden sm:flex" />
+          </div>
+        )}
 
-        <Dots count={dealsProducts.length} activeIndex={carousel.activeIndex} onSelect={carousel.scrollToIndex} className="mt-6" />
+        <Dots count={activeDeals.length} activeIndex={carousel.activeIndex} onSelect={carousel.scrollToIndex} className="mt-6" />
 
         <div className="flex justify-center mt-8">
-          <button className="bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-[13px] font-bold px-7 py-3 rounded-full transition-colors shadow-sm hover:-translate-y-0.5 duration-200" data-testid="deals-view-all">
+          <Link to="/products" className="bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-[13px] font-bold px-7 py-3 rounded-full transition-colors shadow-sm hover:-translate-y-0.5 duration-200" data-testid="deals-view-all">
             View All Sale Products →
-          </button>
+          </Link>
         </div>
       </div>
     </section>

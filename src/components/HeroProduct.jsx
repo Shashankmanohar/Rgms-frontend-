@@ -4,6 +4,7 @@ import { heroSlides } from '../mock/mock';
 import { useCart } from '../context/CartContext';
 import useCarousel from '../hooks/useCarousel';
 import { NavArrow, Dots } from './CarouselControls';
+import { Link } from 'react-router-dom';
 
 const HeroProduct = () => {
   const { addToCart } = useCart();
@@ -42,9 +43,9 @@ const HeroProduct = () => {
                   </h1>
                   <p className="text-[#5b6b82] text-[13.5px] md:text-[14.5px] mt-4 max-w-md leading-relaxed font-semibold">{slide.subtitle}</p>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-6">
-                    <button className="btn-primary text-[13.5px] font-bold px-6 py-3 rounded-full h-11 flex items-center justify-center shadow-md active:scale-95 transition-transform" data-testid={`hero-view-${slide.id}`}>
+                    <Link to="/products" className="btn-primary text-[13.5px] font-bold px-6 py-3 rounded-full h-11 flex items-center justify-center shadow-md active:scale-95 transition-transform" data-testid={`hero-view-${slide.id}`}>
                       View Camera
-                    </button>
+                    </Link>
                     <button
                       onClick={() =>
                         addToCart({

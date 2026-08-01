@@ -57,100 +57,7 @@ export const heroSlides = [
   },
 ];
 
-export const dealsProducts = [
-  {
-    id: 'gps-wire-1',
-    badge: '57% OFF',
-    rating: 4.9,
-    reviews: 38,
-    name: 'RGMS GPS Wire Tracker for Bike & 4-Wheeler | Non-Lock Device with Real-Time Live Tracking, Speed Alerts & Route History',
-    oldPrice: 3499,
-    price: 1499,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'gps-wire-lock-2',
-    badge: '55% OFF',
-    rating: 5.0,
-    reviews: 52,
-    name: 'RGMS GPS Wire Tracker with Remote Engine Lock/Cutoff Feature for Bike, Car & Commercial Vehicles',
-    oldPrice: 4499,
-    price: 1999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'gps-wire-audio-lock-3',
-    badge: '58% OFF',
-    rating: 5.0,
-    reviews: 64,
-    name: 'RGMS Audio & Engine Lock Vehicle GPS Wire Tracker with Live Listening & Remote Engine Lock Feature',
-    oldPrice: 5999,
-    price: 2499,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'gps-magnet-5000-4',
-    badge: '57% OFF',
-    rating: 4.8,
-    reviews: 45,
-    name: 'RGMS Portable Magnetic GPS Tracker with 5000 mAh Long-Life Battery & Live Voice Listening',
-    oldPrice: 6999,
-    price: 2999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'gps-magnet-10000-5',
-    badge: '55% OFF',
-    rating: 5.0,
-    reviews: 79,
-    name: 'RGMS Heavy-Duty Portable Magnetic GPS Tracker with 10000 mAh Ultra Battery & Live Voice Listening',
-    oldPrice: 8999,
-    price: 3999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'deal-1',
-    badge: '65% OFF',
-    rating: 4.0,
-    reviews: 2,
-    name: 'RGMS Smarthome Batman Black 3-in-1 WiFi CCTV Camera | Triple Lens & 3 Screen View | 360\u00b0 PTZ + Dual 180\u00b0 Side Cameras | AI Human Detection | Color Night Vision | Two-Way Audio | Home Security Camera',
-    oldPrice: 10000, price: 3499,
-    image: `${A}/asset-14.png`,
-  },
-  {
-    id: 'deal-2',
-    name: 'RGMS Smarthome Trigenie 4G SIM Triple Lens CCTV Camera, 5MP\u00d73 Outdoor Security Camera with 360\u00b0 PTZ, Triple Screen View, Color Night Vision, AI Motion Detection, 2-Way Audio & App Remote Access (Black)',
-    price: 4499,
-    image: `${A}/asset-20.png`,
-  },
-  {
-    id: 'deal-3',
-    name: 'RGMS TRIGENIE 4G AI Triple Lens Outdoor Security Camera Full-Coverage Smart Surveillance | 4G SIM Support | 3MP\u00d73 FHD Clarity | AI Motion Detection',
-    price: 4599,
-    image: `${A}/asset-15.png`,
-  },
-  {
-    id: 'deal-4',
-    badge: '47% OFF',
-    name: 'RGMS Smarthome TRIGENIE 4G Solar CCTV Camera with 1 Month Free Data | 18MP (6MP\u00d73) Triple Lens & Triple Screen Live View | AI Triple PTZ | 360\u00b0 Outdoor Security Camera | Full Color Night Vision | Human Detection | Two-Way Audio | IP66 Waterproof',
-    oldPrice: 14999, price: 7899,
-    image: `${A}/asset-16.png`,
-  },
-  {
-    id: 'deal-5',
-    badge: '65% OFF',
-    name: 'Wifi Camera (3MP+3MP+3MP) HD Real Triple Lens/Triple Screen View CCTV Camera for home Outdoor',
-    oldPrice: 8700, price: 2999,
-    image: `${A}/asset-17.png`,
-  },
-  {
-    id: 'deal-6',
-    badge: '57% OFF',
-    name: 'Astro WiFi CCTV Camera Dual Lens & Dual Screen View [4MP+4MP] Full HD & 360\u00b0 Home Security',
-    oldPrice: 4000, price: 1699,
-    image: `${A}/asset-5.jpeg`,
-  },
-];
+export const dealsProducts = [];
 
 export const trustItems = [
   { icon: 'truck', title: 'Shipping', subtitle: 'Across India' },
@@ -251,64 +158,7 @@ export const futureFeatures = [
   },
 ];
 
-export const newArrivals = [
-  {
-    id: 'new-gps-audio-lock',
-    badge: '58% OFF',
-    name: 'RGMS Audio & Engine Lock Vehicle GPS Tracker | Live Voice Listening + Engine Cutoff + Anti-Theft Security',
-    oldPrice: 5999, price: 2499,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'new-gps-magnet-10k',
-    badge: '55% OFF',
-    name: 'RGMS Heavy-Duty Portable Magnetic GPS Tracker | 10000 mAh Ultra Standby Battery + Voice Monitor',
-    oldPrice: 8999, price: 3999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'new-1',
-    badge: '47% OFF',
-    name: 'RGMS Smarthome Lumora Ultra Smart Projector | Android 13, Auto Focus & Auto Keystone, WiFi BT, Built-in Speaker, 12000 Lumens, 150\u201d Home Theater Projector for Movies, Gaming',
-    oldPrice: 14999, price: 7819,
-    image: `${A}/asset-26.jpeg`,
-  },
-  {
-    id: 'new-2',
-    badge: '52% OFF',
-    name: 'RGMS Smarthome Lumora Native 1080P FHD Smart AI Projector | Fully Automatic Auto Focus & Keystone | 15000 Lumens | Android Projector with HDMI ARC & BT Voice Remote | Portable Home Theater (Black)',
-    oldPrice: 20999, price: 9999,
-    image: `${A}/asset-21.jpeg`,
-  },
-  {
-    id: 'new-3',
-    badge: '70% OFF',
-    name: 'RGMS Smarthome Lumora Native 1080P FHD Smart AI Projector | Fully Automatic Auto Focus & Keystone | 15000 Lumens | Android Projector with HDMI ARC & BT Voice Remote | Portable Home Theater (White)',
-    oldPrice: 19999, price: 5999,
-    image: `${A}/asset-22.jpeg`,
-  },
-  {
-    id: 'new-4',
-    badge: '50% OFF',
-    name: 'RGMS Smarthome Lumora Ultra Pro Native 1080P FHD Smart Projector | 18000 Lumens Android 12 AI LCD Projector with Auto Focus & Auto Keystone | Miracast, Built-in Speakers & Home Theater Experience',
-    oldPrice: 39999, price: 19999,
-    image: `${A}/asset-23.jpeg`,
-  },
-  {
-    id: 'new-5',
-    badge: '47% OFF',
-    name: 'RGMS Smarthome Lumora Pro Smart Projector | 4K Support, Android 13, Auto Focus & 4-Point Keystone | 16000 Lumens, 150\u201d Big Screen, Built-in Speaker for Home Theater, Movies & Gaming',
-    oldPrice: 15000, price: 7819,
-    image: `${A}/asset-27.png`,
-  },
-  {
-    id: 'new-6',
-    badge: '50% OFF',
-    name: 'RGMS Smarthome Lumora Ultra Pro Max Native 1080P Full HD Smart Projector | 22000 Lumens Android 12 AI LCD Projector | Auto Focus & Auto Keystone | HDR10, Miracast, BT Speaker Mode, 15W Loud Speakers',
-    oldPrice: 49999, price: 24999,
-    image: `${A}/asset-24.jpeg`,
-  },
-];
+export const newArrivals = [];
 
 export const brandCategories = [
   { icon: 'projector', title: 'Projectors', desc: 'Cinematic home theater feel' },
@@ -317,69 +167,7 @@ export const brandCategories = [
   { icon: 'mic', title: 'Smart Studio', desc: 'Professional audio & light' },
 ];
 
-export const bestSellers = [
-  {
-    id: 'best-gps-magnet-5k',
-    badge: '57% OFF',
-    rating: 5.0,
-    reviews: 86,
-    name: 'RGMS Portable Magnetic GPS Tracker | 5000 mAh Battery + Live Voice Listening (Zero Installation Required)',
-    oldPrice: 6999, price: 2999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'best-gps-wire-lock',
-    badge: '55% OFF',
-    rating: 4.9,
-    reviews: 94,
-    name: 'RGMS GPS Wire Tracker with Remote Engine Lock/Cutoff Feature for Bike & All 4-Wheeler Vehicles',
-    oldPrice: 4499, price: 1999,
-    image: `${A}/asset-9.jpeg`,
-  },
-  {
-    id: 'best-1',
-    badge: '46% OFF',
-    rating: 5.0,
-    reviews: 1,
-    name: 'RGMS Smarthome Supercam 10MP Wireless WiFi CCTV Camera | 360\u00b0 PTZ Home Surveillance | Smart Human Detection | Motion Tracking | Full Color Night Vision | Two-Way Audio | Remote Monitoring',
-    oldPrice: 3000, price: 1599,
-    image: `${A}/asset-30.jpeg`,
-  },
-  {
-    id: 'best-2',
-    badge: '50% OFF',
-    name: 'Renewed RGMS Smarthome 4G SIM Dual Lens Indoor CCTV Camera | Dual Screen View, Color Night Vision, 2-Way Talk, AI Motion Detection, 128GB SD Support',
-    oldPrice: 4000, price: 1999,
-    image: `${A}/asset-28.jpeg`,
-  },
-  {
-    id: 'best-3',
-    badge: '48% OFF',
-    name: 'RGMS Smarthome Black Smart Bulb CCTV Camera 3MP | 360\u00b0 Auto Rotation | WiFi Indoor Security Camera | AI Human Detection | Motion Detection | Color Night Vision | Two-Way Audio',
-    oldPrice: 2499, price: 1299,
-    image: `${A}/asset-29.png`,
-  },
-  {
-    id: 'best-4',
-    badge: '50% OFF',
-    name: 'RGMS Smarthome SuperCam 4G Indoor Security Camera | 4+4MP Dual Lens Full HD CCTV Camera Without WiFi | Dual Screen Live View, AI Motion Detection, Color Night Vision, Two-Way Audio, Remote Mobile Access, Supports Up to 128GB microSD',
-    oldPrice: 4000, price: 1999,
-    image: `${A}/asset-18.jpeg`,
-  },
-  {
-    id: 'best-5',
-    badge: '52% OFF',
-    name: 'RGMS Smarthome Mini Fox 360\u00b0 3MP Full HD Wireless WiFi CCTV Camera for Home Security | AI Person Detection | Motion Tracking | Color Night Vision | Two-Way Audio | Indoor Surveillance Camera',
-    oldPrice: 2499, price: 1199,
-    image: `${A}/asset-13.png`,
-  },
-  {
-    id: 'best-6',
-    name: 'RGMS Smarthome SuperCam 5+5MP Smart WiFi CCTV Camera | Dual Lens Dual Screen Monitoring | 360\u00b0 PTZ | Color Night Vision | Motion Detection | Two-Way Audio | Multi-User Viewing',
-    price: 1781,
-    image: `${A}/asset-5.jpeg`,
-  },
-];
+export const bestSellers = [];
 
 export const usageTypes = [
   { icon: 'briefcase', color: '#2f6fed', title: 'Office Security', desc: 'Monitor staff & workspaces' },

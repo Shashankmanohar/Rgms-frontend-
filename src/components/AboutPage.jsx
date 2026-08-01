@@ -11,7 +11,7 @@ import {
 
 export const AboutPage = () => {
   const stats = [
-    { value: '100,000+', label: 'Protected Homes & Fleets', icon: ShieldCheck },
+    { value: '5,000+', label: 'Protected Homes & Fleets', icon: ShieldCheck },
     { value: '500+', label: 'Cities Across India', icon: MapPin },
     { value: '99.9%', label: 'Uptime & App Reliability', icon: Zap },
     { value: '6 Months', label: 'Free Replacement Warranty', icon: Award },

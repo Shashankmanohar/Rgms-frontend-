@@ -144,48 +144,117 @@ export const deleteAllProductsAPI = async () => {
 
 // Send Contact Message (Public)
 export const sendContactMessageAPI = async (contactData) => {
-  const baseUrl = await getApiBase();
-  const res = await fetch(`${baseUrl}/contact`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(contactData)
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed to send message');
-  return data;
+  const newMsgObj = {
+    id: `msg-${Date.now()}`,
+    name: (contactData.name || '').trim(),
+    phone: (contactData.phone || '').trim(),
+    email: (contactData.email || '').trim(),
+    subject: contactData.subject || 'General Inquiry',
+    message: (contactData.message || '').trim(),
+    status: 'unread',
+    createdAt: new Date().toISOString()
+  };
+
+  // Always save to local backup array in localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem('rgms_contact_messages') || '[]');
+    localStorage.setItem('rgms_contact_messages', JSON.stringify([newMsgObj, ...existing]));
+  } catch (e) {
+    // ignore
+  }
+
+  try {
+    const baseUrl = await getApiBase();
+    const res = await fetch(`${baseUrl}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(contactData)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to send message');
+    return data;
+  } catch (err) {
+    console.warn('Saved message to local storage fallback:', err.message);
+    return { message: 'Saved locally', contact: newMsgObj };
+  }
 };
 
-// Fetch Contact Messages (Admin Protected)
+// Fetch Contact Messages (Admin Protected + localStorage Merge)
 export const fetchContactMessagesAPI = async () => {
-  const baseUrl = await getApiBase();
-  const res = await fetch(`${baseUrl}/contact`, {
-    headers: { ...getAuthHeaders() }
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed to fetch contact messages');
-  return data;
+  let localMsgs = [];
+  try {
+    localMsgs = JSON.parse(localStorage.getItem('rgms_contact_messages') || '[]');
+  } catch (e) {
+    localMsgs = [];
+  }
+
+  try {
+    const baseUrl = await getApiBase();
+    const res = await fetch(`${baseUrl}/contact`, {
+      headers: { ...getAuthHeaders() }
+    });
+    if (res.ok) {
+      const remoteMsgs = await res.json();
+      if (Array.isArray(remoteMsgs)) {
+        // Merge remote and local by ID
+        const map = new Map();
+        [...remoteMsgs, ...localMsgs].forEach(m => {
+          if (m && m.id && !map.has(m.id)) map.set(m.id, m);
+        });
+        const merged = Array.from(map.values()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        localStorage.setItem('rgms_contact_messages', JSON.stringify(merged));
+        return merged;
+      }
+    }
+  } catch (err) {
+    console.warn('Backend contact API unavailable, using local messages:', err.message);
+  }
+
+  return localMsgs;
 };
 
 // Mark Contact Message as Read (Admin Protected)
 export const markContactMessageReadAPI = async (id) => {
-  const baseUrl = await getApiBase();
-  const res = await fetch(`${baseUrl}/contact/${id}/read`, {
-    method: 'PUT',
-    headers: { ...getAuthHeaders() }
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed to mark message read');
-  return data;
+  try {
+    const msgs = JSON.parse(localStorage.getItem('rgms_contact_messages') || '[]');
+    const updated = msgs.map(m => m.id === id ? { ...m, status: 'read' } : m);
+    localStorage.setItem('rgms_contact_messages', JSON.stringify(updated));
+  } catch (e) {
+    // ignore
+  }
+
+  try {
+    const baseUrl = await getApiBase();
+    const res = await fetch(`${baseUrl}/contact/${id}/read`, {
+      method: 'PUT',
+      headers: { ...getAuthHeaders() }
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return { message: 'Marked read locally', id };
+  }
 };
 
 // Delete Contact Message (Admin Protected)
 export const deleteContactMessageAPI = async (id) => {
-  const baseUrl = await getApiBase();
-  const res = await fetch(`${baseUrl}/contact/${id}`, {
-    method: 'DELETE',
-    headers: { ...getAuthHeaders() }
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed to delete message');
-  return data;
+  try {
+    const msgs = JSON.parse(localStorage.getItem('rgms_contact_messages') || '[]');
+    const updated = msgs.filter(m => m.id !== id);
+    localStorage.setItem('rgms_contact_messages', JSON.stringify(updated));
+  } catch (e) {
+    // ignore
+  }
+
+  try {
+    const baseUrl = await getApiBase();
+    const res = await fetch(`${baseUrl}/contact/${id}`, {
+      method: 'DELETE',
+      headers: { ...getAuthHeaders() }
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return { message: 'Deleted locally', id };
+  }
 };

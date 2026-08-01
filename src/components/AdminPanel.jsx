@@ -158,7 +158,10 @@ export const AdminPanel = () => {
       stock: 20,
       image: '',
       description: '',
-      featuresText: 'Official RGMS 6 Month Warranty\nFree Express Shipping Across India'
+      featuresText: 'Official RGMS 6 Month Warranty\nFree Express Shipping Across India',
+      isDeal: false,
+      isNewArrival: true,
+      isBestSeller: false,
     });
     setIsModalOpen(true);
   };
@@ -174,7 +177,10 @@ export const AdminPanel = () => {
       stock: prod.stock !== undefined ? prod.stock : 20,
       image: prod.image || '/assets/asset-1.png',
       description: prod.description || '',
-      featuresText: Array.isArray(prod.features) ? prod.features.join('\n') : ''
+      featuresText: Array.isArray(prod.features) ? prod.features.join('\n') : '',
+      isDeal: Boolean(prod.isDeal),
+      isNewArrival: prod.isNewArrival !== undefined ? Boolean(prod.isNewArrival) : true,
+      isBestSeller: Boolean(prod.isBestSeller),
     });
     setIsModalOpen(true);
   };
@@ -220,7 +226,10 @@ export const AdminPanel = () => {
       description: formData.description || 'Official RGMS Smart Security Device with 6 Months Warranty.',
       features: formData.featuresText
         ? formData.featuresText.split('\n').filter((f) => f.trim().length > 0)
-        : ['Official RGMS Warranty', 'Free Shipping Across India']
+        : ['Official RGMS Warranty', 'Free Shipping Across India'],
+      isDeal: Boolean(formData.isDeal),
+      isNewArrival: Boolean(formData.isNewArrival),
+      isBestSeller: Boolean(formData.isBestSeller),
     };
 
     if (editingProduct) {
@@ -693,6 +702,18 @@ export const AdminPanel = () => {
                         </td>
                         <td className="p-3.5 pr-5 text-right">
                           <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => {
+                                setSelectedMessage(msg);
+                                if (msg.status === 'unread') handleMarkRead(msg.id);
+                              }}
+                              className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] p-2 rounded-xl transition-all flex items-center gap-1 text-[11px] font-bold"
+                              title="View Full Inquiry Details"
+                            >
+                              <Eye size={14} />
+                              <span className="hidden sm:inline">View</span>
+                            </button>
+
                             <a
                               href={`https://wa.me/${msg.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(msg.name)},%20thank%20you%20for%20contacting%20RGMS%20Support!`}
                               target="_blank"
@@ -809,6 +830,42 @@ export const AdminPanel = () => {
                 </div>
               </div>
 
+              {/* Homepage Section Placement Toggles */}
+              <div className="bg-[#e8eeff]/60 border border-[#082f89]/20 rounded-xl p-3.5 space-y-2">
+                <label className="block font-extrabold uppercase text-[#082f89]">Homepage Display Sections</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(formData.isDeal)}
+                      onChange={(e) => setFormData({ ...formData, isDeal: e.target.checked })}
+                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                    />
+                    <span className="text-xs font-extrabold text-[#07152e]">Deals in FOCUS</span>
+                  </label>
+
+                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(formData.isNewArrival)}
+                      onChange={(e) => setFormData({ ...formData, isNewArrival: e.target.checked })}
+                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                    />
+                    <span className="text-xs font-extrabold text-[#07152e]">New Arrivals</span>
+                  </label>
+
+                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(formData.isBestSeller)}
+                      onChange={(e) => setFormData({ ...formData, isBestSeller: e.target.checked })}
+                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                    />
+                    <span className="text-xs font-extrabold text-[#07152e]">Best Sellers</span>
+                  </label>
+                </div>
+              </div>
+
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block mb-1 font-extrabold uppercase">Selling Price (₹) *</label>
@@ -913,6 +970,93 @@ export const AdminPanel = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* View Selected Inquiry Detail Modal */}
+      {selectedMessage && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative animate-scaleUp space-y-5">
+            <button
+              onClick={() => setSelectedMessage(null)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 bg-slate-100 p-2 rounded-full transition-colors"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-[#e8eeff] text-[#082f89] flex items-center justify-center font-black">
+                <MessageSquare size={20} />
+              </div>
+              <div>
+                <h3 className="text-lg font-black text-[#07152e]">Customer Inquiry Details</h3>
+                <p className="text-xs text-[#64748b] font-medium">Submitted on {new Date(selectedMessage.createdAt).toLocaleString('en-IN')}</p>
+              </div>
+            </div>
+
+            <div className="bg-[#f8fafc] rounded-2xl p-4 border border-slate-200 space-y-3 text-xs">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                <span className="font-extrabold text-[#64748b]">Customer Name</span>
+                <span className="font-black text-[#07152e]">{selectedMessage.name}</span>
+              </div>
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                <span className="font-extrabold text-[#64748b]">Phone Number</span>
+                <a href={`tel:${selectedMessage.phone}`} className="font-black text-[#082f89] hover:underline flex items-center gap-1">
+                  <Phone size={12} /> {selectedMessage.phone}
+                </a>
+              </div>
+              {selectedMessage.email && (
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                  <span className="font-extrabold text-[#64748b]">Email Address</span>
+                  <span className="font-bold text-[#07152e]">{selectedMessage.email}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between">
+                <span className="font-extrabold text-[#64748b]">Subject / Purpose</span>
+                <span className="bg-[#e8eeff] text-[#082f89] font-black px-2.5 py-0.5 rounded-lg text-[11px]">
+                  {selectedMessage.subject}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-black text-[#07152e] uppercase tracking-wider">Inquiry Message</label>
+              <div className="bg-[#f1f5f9] rounded-2xl p-4 text-xs font-medium text-[#334155] leading-relaxed max-h-48 overflow-y-auto">
+                {selectedMessage.message}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 pt-2">
+              <a
+                href={`https://wa.me/${selectedMessage.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(selectedMessage.name)},%20thank%20you%20for%20contacting%20RGMS%20Support!`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 rounded-2xl font-black text-xs transition-all flex items-center justify-center gap-2 shadow-sm"
+              >
+                <WhatsAppIcon size={16} />
+                <span>Reply on WhatsApp</span>
+              </a>
+
+              {selectedMessage.status === 'unread' && (
+                <button
+                  onClick={() => {
+                    handleMarkRead(selectedMessage.id);
+                    setSelectedMessage((prev) => prev ? { ...prev, status: 'read' } : null);
+                  }}
+                  className="bg-[#e2f5ec] hover:bg-[#01a345] hover:text-white text-[#01a345] px-4 py-3 rounded-2xl font-black text-xs transition-all"
+                >
+                  Mark Read
+                </button>
+              )}
+
+              <button
+                onClick={() => handleDeleteMessage(selectedMessage.id)}
+                className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] px-4 py-3 rounded-2xl font-black text-xs transition-all"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}

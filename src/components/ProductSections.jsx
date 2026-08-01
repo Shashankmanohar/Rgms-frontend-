@@ -1,15 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Projector, Car, Gamepad2, Mic2, Trophy, Tv, RotateCw, Wifi, Briefcase, Baby, Users, Sun, Store, PawPrint } from 'lucide-react';
-import { newArrivals, bestSellers, brandCategories, usageTypes } from '../mock/mock';
+import { newArrivals as fallbackNewArrivals, bestSellers as fallbackBestSellers, brandCategories, usageTypes } from '../mock/mock';
 import ProductCard from './ProductCard';
 import useCarousel from '../hooks/useCarousel';
 import { NavArrow, Dots } from './CarouselControls';
+import { useProducts } from '../context/ProductContext';
 
 const brandIconMap = { projector: Projector, car: Car, gamepad: Gamepad2, mic: Mic2 };
 const usageIconMap = { briefcase: Briefcase, baby: Baby, users: Users, sun: Sun, store: Store, paw: PawPrint };
 
 const CarouselRow = ({ products, testId }) => {
   const carousel = useCarousel({ autoplay: false });
+  if (!products || products.length === 0) {
+    return (
+      <div className="bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm text-slate-500 font-bold text-xs sm:text-sm">
+        No products currently listed in this section. Add products from the Admin Panel!
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <NavArrow dir="left" onClick={carousel.prev} className="absolute -left-3 lg:-left-5 top-[38%] -translate-y-1/2 z-10 hidden sm:flex" />
@@ -31,26 +41,35 @@ const CarouselRow = ({ products, testId }) => {
   );
 };
 
-const SectionHeader = ({ title, subtitle, testId }) => (
+const SectionHeader = ({ title, subtitle, testId, linkTo = '/products' }) => (
   <div className="flex items-end justify-between gap-4 mb-6 sm:mb-8 md:mb-10">
     <div>
       <h2 className="text-[24px] sm:text-[32px] font-black text-[#07152e] tracking-tight" data-testid={testId}>{title}</h2>
       <p className="text-[13px] sm:text-[13.5px] text-[#64748b] mt-1 sm:mt-2 font-medium">{subtitle}</p>
     </div>
-    <button className="bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-[12px] sm:text-[12.5px] font-bold px-4 sm:px-5 py-2 rounded-full transition-colors shrink-0 hover:-translate-y-0.5 duration-200 shadow-sm active:scale-95">
-      View All →
-    </button>
+    <Link
+      to={linkTo}
+      className="bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-[12px] sm:text-[12.5px] font-bold px-4 sm:px-5 py-2 rounded-full transition-colors shrink-0 hover:-translate-y-0.5 duration-200 shadow-sm active:scale-95 flex items-center gap-1"
+    >
+      <span>View All</span>
+      <span>→</span>
+    </Link>
   </div>
 );
 
-export const NewArrivals = () => (
-  <section className="bg-[#f1f5f9] py-12 md:py-16" data-testid="new-arrivals-section">
-    <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-      <SectionHeader title="New Arrivals" subtitle="The latest additions to our family" testId="new-arrivals-title" />
-      <CarouselRow products={newArrivals} testId="new-arrivals-scroller" />
-    </div>
-  </section>
-);
+export const NewArrivals = () => {
+  const { newArrivalsList } = useProducts();
+  const activeNewArrivals = newArrivalsList && newArrivalsList.length > 0 ? newArrivalsList : fallbackNewArrivals;
+
+  return (
+    <section className="bg-[#f1f5f9] py-12 md:py-16" data-testid="new-arrivals-section">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+        <SectionHeader title="New Arrivals" subtitle="The latest additions to our family" testId="new-arrivals-title" />
+        <CarouselRow products={activeNewArrivals} testId="new-arrivals-scroller" />
+      </div>
+    </section>
+  );
+};
 
 export const BrandSection = () => (
   <section className="bg-gradient-to-b from-[#041b54] to-[#082f89] py-14 md:py-20 overflow-hidden relative" data-testid="brand-section">
@@ -106,7 +125,7 @@ export const BrandSection = () => (
               <p className="text-[9.5px] sm:text-[10px] opacity-90">Smart Projector</p>
             </div>
           </div>
-          <div className="absolute -right-2 sm:-right-3 md:-right-10 top-1/3 bg-[#041b54] text-white rounded-xl shadow-lg px-3 py-2 sm:px-3.5 sm:py-2.5 flex items-center gap-2 animate-floatY z-10" style={{ animationDelay: '1s' }}>
+          <div className="absolute -right-2 sm:-right-3 md:-right-10 top-1/3 bg-[#041b54] text-[#ffffff] rounded-xl shadow-lg px-3 py-2 sm:px-3.5 sm:py-2.5 flex items-center gap-2 animate-floatY z-10" style={{ animationDelay: '1s' }}>
             <RotateCw size={13} className="text-[#01a345]" />
             <span className="text-[10.5px] sm:text-[11px] font-bold">180° Rotation</span>
           </div>
@@ -120,14 +139,19 @@ export const BrandSection = () => (
   </section>
 );
 
-export const BestSellers = () => (
-  <section className="bg-white py-14 md:py-16" data-testid="best-sellers-section">
-    <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-      <SectionHeader title="Best Sellers" subtitle="Our most popular AI cameras" testId="best-sellers-title" />
-      <CarouselRow products={bestSellers} testId="best-sellers-scroller" />
-    </div>
-  </section>
-);
+export const BestSellers = () => {
+  const { bestSellersList } = useProducts();
+  const activeBestSellers = bestSellersList && bestSellersList.length > 0 ? bestSellersList : fallbackBestSellers;
+
+  return (
+    <section className="bg-white py-14 md:py-16" data-testid="best-sellers-section">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+        <SectionHeader title="Best Sellers" subtitle="Our most popular AI cameras" testId="best-sellers-title" />
+        <CarouselRow products={activeBestSellers} testId="best-sellers-scroller" />
+      </div>
+    </section>
+  );
+};
 
 export const UsageTypes = () => (
   <section className="bg-[#f8fafc] py-14 md:py-16" data-testid="usage-types-section">

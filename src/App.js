@@ -11,11 +11,14 @@ import VideoTestimonials from './components/VideoTestimonials';
 import { NewArrivals, BrandSection, BestSellers, UsageTypes } from './components/ProductSections';
 import { CustomerLove, NewsletterCards, Footer } from './components/BottomSections';
 import TrustedBy from './components/TrustedBy';
+import WhyChooseUs from './components/WhyChooseUs';
+import FAQSection from './components/FAQSection';
 
 import CategoryPage from './components/CategoryPage';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import AdminPanel from './components/AdminPanel';
+import { ProductDetailPage } from './components/ProductDetailPage';
 import { ProductProvider } from './context/ProductContext';
 import SEO from './components/SEO';
 
@@ -32,12 +35,14 @@ const Home = () => (
       <HeroProduct />
       <DealsSection />
       <TrustBar />
+      <WhyChooseUs />
       <VideoTestimonials />
       <TrustedBy />
       <NewArrivals />
       <BrandSection />
       <BestSellers />
       <UsageTypes />
+      <FAQSection />
       <CustomerLove />
       <NewsletterCards />
     </main>
@@ -48,8 +53,8 @@ const Home = () => (
 function App() {
   return (
     <HelmetProvider>
-      <ProductProvider>
-        <CartProvider>
+      <CartProvider>
+        <ProductProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -61,13 +66,15 @@ function App() {
               <Route path="/products" element={<CategoryPage />} />
               <Route path="/shop-all" element={<CategoryPage />} />
               <Route path="/all-products" element={<CategoryPage />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+              <Route path="/item/:id" element={<ProductDetailPage />} />
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/admin-panel" element={<AdminPanel />} />
             </Routes>
           </BrowserRouter>
           <Toaster position="bottom-right" richColors closeButton />
-        </CartProvider>
-      </ProductProvider>
+        </ProductProvider>
+      </CartProvider>
     </HelmetProvider>
   );
 }

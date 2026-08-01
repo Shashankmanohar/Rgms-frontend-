@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Star, Mail, Facebook, Instagram, Youtube, Phone, MapPin, ArrowUp, Truck, ShieldCheck, RefreshCcw, Headphones, Lock, Award, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Mail, Facebook, Instagram, Youtube, Phone, MapPin, ArrowUp, Truck, ShieldCheck, RefreshCcw, Headphones, Lock, Award, ArrowUpRight, CheckCircle2, MessageSquare } from 'lucide-react';
 import { reviews, blogs, footerData } from '../mock/mock';
 import { toast } from 'sonner';
+import { QuickEnquiryModal, InlineEnquiryForm } from './QuickEnquiryModal';
 
 export const WhatsAppIcon = ({ size = 20, className = '' }) => (
   <svg
@@ -184,6 +185,8 @@ export const Blogs = () => (
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+
   const subscribe = (e) => {
     e.preventDefault();
     if (!email.trim() || !email.includes('@')) {
@@ -195,22 +198,24 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#020b22] pt-14 md:pt-20 pb-8 relative text-white overflow-hidden border-t-2 border-[#082f89]/60" data-testid="footer">
-      {/* Glow background effects */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-[#082f89]/20 blur-[130px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-0 right-1/4 w-[450px] h-[250px] bg-[#01a345]/15 blur-[120px] pointer-events-none rounded-full" />
+    <>
+      <InlineEnquiryForm />
+      <footer className="bg-[#020b22] pt-14 md:pt-20 pb-8 relative text-white overflow-hidden border-t-2 border-[#082f89]/60" data-testid="footer">
+        {/* Glow background effects */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-[#082f89]/20 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-[450px] h-[250px] bg-[#01a345]/15 blur-[120px] pointer-events-none rounded-full" />
 
-      {/* Grid line backdrop overlay */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+        {/* Grid line backdrop overlay */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
 
-      <div className="max-w-[1280px] mx-auto px-4 lg:px-8 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8 relative z-10">
 
         {/* Top Guarantee Cards Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pb-12 mb-12 border-b border-white/10">
@@ -410,8 +415,19 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#94a3b8] font-medium">
-          <p className="text-center sm:text-left">{footerData.copyright}</p>
+        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-[#94a3b8] font-medium text-center md:text-left">
+          <p>{footerData.copyright}</p>
+          <p className="text-[11.5px] font-semibold text-[#cbd5e1]">
+            Developed & Maintained by{' '}
+            <a
+              href="https://webfloratechnologies.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#01a345] hover:text-white font-extrabold transition-colors underline underline-offset-4"
+            >
+              Webflora Technologies
+            </a>
+          </p>
           <div className="flex items-center gap-5 text-[11.5px]">
             <a href="#top" className="hover:text-white transition-colors">Privacy Policy</a>
             <span>•</span>
@@ -424,17 +440,28 @@ export const Footer = () => {
       </div>
 
       {/* Floating WhatsApp API Button */}
-      <a
-        href="https://wa.me/917707019501?text=Hello%20RGMS%20Team!%20I%20have%20an%20enquiry."
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        data-testid="floating-whatsapp-btn"
-        className="fixed bottom-6 left-6 z-50 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.45)] border-2 border-white transition-all duration-300 hover:scale-105 active:scale-95 group font-extrabold text-xs"
-      >
-        <WhatsAppIcon size={20} className="text-white shrink-0" />
-        <span className="hidden sm:inline">WhatsApp Chat</span>
-      </a>
+      <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2">
+        <a
+          href="https://wa.me/917707019501?text=Hello%20RGMS%20Team!%20I%20have%20an%20enquiry."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          data-testid="floating-whatsapp-btn"
+          className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.45)] border-2 border-white transition-all duration-300 hover:scale-105 active:scale-95 group font-extrabold text-xs"
+        >
+          <WhatsAppIcon size={20} className="text-white shrink-0" />
+          <span className="hidden sm:inline">WhatsApp</span>
+        </a>
+
+        <button
+          onClick={() => setIsEnquiryModalOpen(true)}
+          aria-label="Quick Enquiry"
+          className="inline-flex items-center gap-2 bg-[#082f89] hover:bg-[#0e45c4] text-white px-4 py-3 rounded-full shadow-[0_10px_25px_rgba(8,47,137,0.45)] border-2 border-white transition-all duration-300 hover:scale-105 active:scale-95 group font-extrabold text-xs"
+        >
+          <MessageSquare size={18} className="text-white shrink-0" />
+          <span className="hidden sm:inline">Quick Enquiry</span>
+        </button>
+      </div>
 
       {/* Floating Back to Top Button */}
       <button
@@ -445,6 +472,9 @@ export const Footer = () => {
       >
         <ArrowUp size={20} className="group-hover:-translate-y-0.5 transition-transform" />
       </button>
+
+      <QuickEnquiryModal isOpen={isEnquiryModalOpen} onClose={() => setIsEnquiryModalOpen(false)} />
     </footer>
+    </>
   );
 };
