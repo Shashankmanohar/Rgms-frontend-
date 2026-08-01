@@ -1,14 +1,25 @@
-let ACTIVE_API_BASE = 'http://localhost:5000/api';
+const PROD_API_BASE = 'https://rgms-backend.vercel.app/api';
+const LOCAL_API_BASE = 'http://localhost:5000/api';
+
+let ACTIVE_API_BASE = PROD_API_BASE;
 
 const getApiBase = async () => {
+  // In production (Vercel), always use the deployed backend
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    ACTIVE_API_BASE = PROD_API_BASE;
+    return ACTIVE_API_BASE;
+  }
+
+  // In local development, try localhost first, fallback to production
   try {
-    const res = await fetch('http://localhost:5000/api/health', { signal: AbortSignal.timeout(1000) });
+    const res = await fetch(`${LOCAL_API_BASE}/health`, { signal: AbortSignal.timeout(1000) });
     if (res.ok) {
-      ACTIVE_API_BASE = 'http://localhost:5000/api';
+      ACTIVE_API_BASE = LOCAL_API_BASE;
       return ACTIVE_API_BASE;
     }
   } catch (e) {
-    ACTIVE_API_BASE = 'http://localhost:5001/api';
+    // Local backend not running, use production
+    ACTIVE_API_BASE = PROD_API_BASE;
   }
   return ACTIVE_API_BASE;
 };
