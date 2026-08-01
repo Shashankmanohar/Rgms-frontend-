@@ -97,7 +97,6 @@
     "tailwindcss": "3.4.17"
   },
   "resolutions": {
-    "react-router": "7.15.1",
     "node-forge": "1.4.0",
     "fast-uri": "3.1.2",
     "flatted": "3.4.2",
