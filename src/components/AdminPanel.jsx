@@ -10,7 +10,7 @@ import { WhatsAppIcon } from './BottomSections';
 import { 
   Package, Plus, Edit3, Trash2, Search, SlidersHorizontal, 
   ShieldCheck, Upload, LogOut, Lock, User, CheckCircle2, X, RefreshCw, Layers, Sparkles, Image as ImageIcon,
-  MessageSquare, Mail, Phone, Clock, Eye, Check
+  MessageSquare, Mail, Phone, Clock, Eye, Check, ArrowLeft
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -396,583 +396,586 @@ export const AdminPanel = () => {
       </header>
 
       <main className="max-w-[1360px] mx-auto px-4 lg:px-8 py-8 space-y-8">
-
-        {/* Dashboard Stat Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Total Products</p>
-              <p className="text-2xl font-black text-[#082f89] mt-1">{products.length}</p>
-            </div>
-            <div className="w-11 h-11 bg-[#e8eeff] text-[#082f89] rounded-xl flex items-center justify-center">
-              <Package size={22} />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Contact Messages</p>
-              <p className="text-2xl font-black text-[#01a345] mt-1">
-                {messages.length}
-                {messages.filter(m => m.status === 'unread').length > 0 && (
-                  <span className="text-xs bg-[#f00102] text-white px-2 py-0.5 rounded-full ml-2 font-black">
-                    {messages.filter(m => m.status === 'unread').length} NEW
-                  </span>
-                )}
-              </p>
-            </div>
-            <div className="w-11 h-11 bg-[#e2f5ec] text-[#01a345] rounded-xl flex items-center justify-center">
-              <MessageSquare size={22} />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Active Badges</p>
-              <p className="text-2xl font-black text-[#f00102] mt-1">
-                {products.filter(p => p.badge && p.badge !== 'NONE').length}
-              </p>
-            </div>
-            <div className="w-11 h-11 bg-[#fee2e2] text-[#f00102] rounded-xl flex items-center justify-center">
-              <Sparkles size={22} />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">In Stock Inventory</p>
-              <p className="text-2xl font-black text-[#07152e] mt-1">
-                {products.reduce((acc, p) => acc + (p.stock || 0), 0)} pcs
-              </p>
-            </div>
-            <div className="w-11 h-11 bg-[#f1f5f9] text-[#07152e] rounded-xl flex items-center justify-center">
-              <CheckCircle2 size={22} />
-            </div>
-          </div>
-        </div>
-
-        {/* Tab Navigation Bar */}
-        <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-200 shadow-xs">
-          <button
-            onClick={() => setActiveTab('products')}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${
-              activeTab === 'products'
-                ? 'bg-[#082f89] text-white shadow-md'
-                : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#07152e]'
-            }`}
-          >
-            <Package size={16} />
-            <span>Products Catalog ({products.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('messages')}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 relative ${
-              activeTab === 'messages'
-                ? 'bg-[#082f89] text-white shadow-md'
-                : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#07152e]'
-            }`}
-          >
-            <MessageSquare size={16} />
-            <span>Contact Messages ({messages.length})</span>
-            {messages.filter((m) => m.status === 'unread').length > 0 && (
-              <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded-full uppercase animate-pulse">
-                {messages.filter((m) => m.status === 'unread').length} NEW
-              </span>
-            )}
-          </button>
-        </div>
-
-        {/* Action Bar & Table Controls */}
-        {activeTab === 'products' && (
-          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-5">
-              <div>
-                <h2 className="text-xl font-black text-[#07152e]">Store Inventory Catalog</h2>
-                <p className="text-xs text-[#64748b] font-medium mt-0.5">Manage products across Home sections, Categories, and Search</p>
+        {isModalOpen ? (
+          <div className="space-y-6 animate-fadeSlideIn">
+            {/* Inline Page View Header */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#082f89] text-white flex items-center justify-center shadow-md">
+                  {editingProduct ? <Edit3 size={20} /> : <Plus size={20} />}
+                </div>
+                <div>
+                  <h2 className="text-xl font-black text-[#07152e]">
+                    {editingProduct ? `Edit Product: ${editingProduct.name}` : 'Add New Product to Catalog'}
+                  </h2>
+                  <p className="text-xs text-[#64748b] font-medium">Enter details below to publish live to RGMS storefront.</p>
+                </div>
               </div>
-
-              <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                {products.length > 0 && (
-                  <button
-                    onClick={handleClearAll}
-                    className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] text-xs font-black px-4 py-3 rounded-2xl transition-all shadow-xs flex items-center justify-center gap-1.5"
-                    title="Delete all products from inventory"
-                  >
-                    <Trash2 size={16} />
-                    <span>Delete All Products</span>
-                  </button>
-                )}
-
-                <button
-                  onClick={openAddModal}
-                  className="bg-[#082f89] hover:bg-[#0e45c4] text-white text-xs font-black px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"
-                >
-                  <Plus size={18} />
-                  <span>Add New Product</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Filters Bar */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="relative flex-1 w-full">
-                <Search size={16} className="absolute left-3.5 top-3 text-slate-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search products by title or ID..."
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold text-[#07152e] focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide w-full md:w-auto pb-1 md:pb-0">
-                <SlidersHorizontal size={16} className="text-slate-400 shrink-0" />
-                {['all', 'gps-trackers', 'wifi-cameras', '4g-cameras', 'solar-cameras', 'projectors', 'dashcams', 'supercams'].map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all uppercase tracking-wider ${
-                      selectedCategory === cat
-                        ? 'bg-[#082f89] text-white shadow-sm'
-                        : 'bg-[#f1f5f9] text-[#64748b] hover:bg-[#e8eeff] hover:text-[#082f89]'
-                    }`}
-                  >
-                    {cat.replace('-', ' ')}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Product Inventory Table */}
-            <div className="overflow-x-auto border border-slate-100 rounded-2xl">
-              <table className="w-full text-left border-collapse min-w-[800px]">
-                <thead>
-                  <tr className="bg-[#041b54] text-white text-[11px] font-black uppercase tracking-wider">
-                    <th className="p-3.5 pl-5">Product Details</th>
-                    <th className="p-3.5">Category</th>
-                    <th className="p-3.5">Price</th>
-                    <th className="p-3.5">Badge</th>
-                    <th className="p-3.5">Stock</th>
-                    <th className="p-3.5 pr-5 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-xs font-semibold text-[#07152e]">
-                  {filteredProducts.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} className="py-10 text-center text-slate-400 font-bold">
-                        No products found matching your search query.
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredProducts.map((prod) => (
-                      <tr key={prod.id} className="hover:bg-slate-50 transition-colors">
-                        <td className="p-3.5 pl-5">
-                          <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-xl bg-[#f8fafc] p-1 border border-slate-200 shrink-0 flex items-center justify-center overflow-hidden">
-                              <img src={prod.image} alt="" className="max-h-full max-w-full object-contain" />
-                            </div>
-                            <div>
-                              <p className="font-extrabold text-[#07152e] text-[13px] line-clamp-1">{prod.name}</p>
-                              <p className="text-[10.5px] text-[#64748b] font-mono mt-0.5">ID: {prod.id}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-3.5">
-                          <span className="bg-[#e8eeff] text-[#082f89] text-[10.5px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider">
-                            {prod.category}
-                          </span>
-                        </td>
-                        <td className="p-3.5 font-extrabold text-[#082f89]">
-                          ₹{prod.price}
-                          {prod.oldPrice && (
-                            <span className="text-[11px] text-[#94a3b8] line-through font-semibold ml-1.5">₹{prod.oldPrice}</span>
-                          )}
-                        </td>
-                        <td className="p-3.5">
-                          {prod.badge ? (
-                            <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase">
-                              {prod.badge}
-                            </span>
-                          ) : (
-                            <span className="text-slate-300">-</span>
-                          )}
-                        </td>
-                        <td className="p-3.5">
-                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                            (prod.stock || 20) > 5 ? 'bg-[#e2f5ec] text-[#01a345]' : 'bg-[#fee2e2] text-[#f00102]'
-                          }`}>
-                            {prod.stock !== undefined ? prod.stock : 20} in stock
-                          </span>
-                        </td>
-                        <td className="p-3.5 pr-5 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button
-                              onClick={() => openEditModal(prod)}
-                              className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] p-2 rounded-xl transition-all"
-                              title="Edit Product"
-                            >
-                              <Edit3 size={15} />
-                            </button>
-                            <button
-                              onClick={() => handleDeleteProduct(prod.id, prod.name)}
-                              className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] p-2 rounded-xl transition-all"
-                              title="Delete Product"
-                            >
-                              <Trash2 size={15} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {/* Contact Messages View */}
-        {activeTab === 'messages' && (
-          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-5">
-              <div>
-                <h2 className="text-xl font-black text-[#07152e]">Customer Contact Messages</h2>
-                <p className="text-xs text-[#64748b] font-medium mt-0.5">Inquiries submitted from the Contact Us form</p>
-              </div>
-
               <button
-                onClick={loadMessages}
-                className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all"
+                onClick={() => setIsModalOpen(false)}
+                className="bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-xs font-black px-4 py-2.5 rounded-xl transition-all shadow-xs flex items-center gap-1.5"
               >
-                <RefreshCw size={14} className={loadingMessages ? 'animate-spin' : ''} />
-                <span>Refresh Messages</span>
+                <ArrowLeft size={16} />
+                <span>Back to Catalog</span>
               </button>
             </div>
 
-            {messages.length === 0 ? (
-              <div className="py-16 text-center text-slate-400 space-y-2">
-                <MessageSquare size={40} className="mx-auto text-slate-300" />
-                <p className="text-sm font-bold text-[#07152e]">No contact messages received yet</p>
-                <p className="text-xs text-[#64748b]">Submissions from visitors on the Contact Us page will show up here.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto border border-slate-100 rounded-2xl">
-                <table className="w-full text-left border-collapse min-w-[800px]">
-                  <thead>
-                    <tr className="bg-[#041b54] text-white text-[11px] font-black uppercase tracking-wider">
-                      <th className="p-3.5 pl-5">Status</th>
-                      <th className="p-3.5">Customer</th>
-                      <th className="p-3.5">Contact Details</th>
-                      <th className="p-3.5">Topic / Subject</th>
-                      <th className="p-3.5">Date</th>
-                      <th className="p-3.5 pr-5 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-xs font-semibold text-[#07152e]">
-                    {messages.map((msg) => (
-                      <tr key={msg.id} className={`hover:bg-slate-50 transition-colors ${msg.status === 'unread' ? 'bg-[#e8eeff]/30 font-bold' : ''}`}>
-                        <td className="p-3.5 pl-5">
-                          {msg.status === 'unread' ? (
-                            <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase animate-pulse">
-                              NEW
-                            </span>
-                          ) : (
-                            <span className="bg-slate-100 text-slate-600 text-[9.5px] font-bold px-2 py-0.5 rounded uppercase">
-                              READ
-                            </span>
-                          )}
-                        </td>
-                        <td className="p-3.5 font-extrabold text-[#07152e]">
-                          {msg.name}
-                        </td>
-                        <td className="p-3.5 space-y-0.5">
-                          <p className="flex items-center gap-1 text-[#082f89] font-bold"><Phone size={12} /> {msg.phone}</p>
-                          {msg.email && <p className="flex items-center gap-1 text-[#64748b] text-[11px]"><Mail size={12} /> {msg.email}</p>}
-                        </td>
-                        <td className="p-3.5">
-                          <span className="bg-[#e8eeff] text-[#082f89] text-[10.5px] font-black px-2.5 py-0.5 rounded-lg">
-                            {msg.subject}
-                          </span>
-                          <p className="text-[11.5px] text-[#4a5568] font-normal line-clamp-2 mt-1 max-w-xs">{msg.message}</p>
-                        </td>
-                        <td className="p-3.5 text-[#64748b] text-[11px] whitespace-nowrap">
-                          {new Date(msg.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-                        </td>
-                        <td className="p-3.5 pr-5 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button
-                              onClick={() => {
-                                setSelectedMessage(msg);
-                                if (msg.status === 'unread') handleMarkRead(msg.id);
-                              }}
-                              className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] p-2 rounded-xl transition-all flex items-center gap-1 text-[11px] font-bold"
-                              title="View Full Inquiry Details"
-                            >
-                              <Eye size={14} />
-                              <span className="hidden sm:inline">View</span>
-                            </button>
-
-                            <a
-                              href={`https://wa.me/${msg.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(msg.name)},%20thank%20you%20for%20contacting%20RGMS%20Support!`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="bg-[#25D366] hover:bg-[#20bd5a] text-white p-2 rounded-xl transition-all flex items-center gap-1 text-[11px] font-bold shadow-xs"
-                              title="Reply via WhatsApp"
-                            >
-                              <WhatsAppIcon size={14} />
-                              <span className="hidden xl:inline">WhatsApp</span>
-                            </a>
-
-                            {msg.status === 'unread' && (
-                              <button
-                                onClick={() => handleMarkRead(msg.id)}
-                                className="bg-[#e2f5ec] hover:bg-[#01a345] hover:text-white text-[#01a345] p-2 rounded-xl transition-all"
-                                title="Mark as Read"
-                              >
-                                <Check size={14} />
-                              </button>
-                            )}
-
-                            <button
-                              onClick={() => handleDeleteMessage(msg.id)}
-                              className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] p-2 rounded-xl transition-all"
-                              title="Delete Message"
-                            >
-                              <Trash2 size={14} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
-
-      </main>
-
-      {/* Add / Edit Product Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative my-8 animate-scaleUp">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors"
-            >
-              <X size={18} />
-            </button>
-
-            <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-[#082f89] text-white flex items-center justify-center">
-                {editingProduct ? <Edit3 size={20} /> : <Plus size={20} />}
-              </div>
-              <div>
-                <h3 className="text-lg font-black text-[#07152e]">
-                  {editingProduct ? `Edit Product: ${editingProduct.name}` : 'Add New Product to Catalog'}
-                </h3>
-                <p className="text-xs text-[#64748b] font-medium">Enter details below to publish live to RGMS storefront.</p>
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmitForm} className="space-y-4 text-xs font-bold text-[#07152e]">
-              <div>
-                <label className="block mb-1 font-extrabold uppercase">Product Title / Name *</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. RGMS Smart 4G Solar Surveillance Camera"
-                  className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Inline Form Body */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm max-w-3xl mx-auto">
+              <form onSubmit={handleSubmitForm} className="space-y-4 text-xs font-bold text-[#07152e]">
                 <div>
-                  <label className="block mb-1 font-extrabold uppercase">Category</label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                  >
-                    <option value="gps-trackers">GPS Trackers</option>
-                    <option value="wifi-cameras">WiFi Cameras</option>
-                    <option value="4g-cameras">4G Cameras</option>
-                    <option value="solar-cameras">Solar Cameras</option>
-                    <option value="projectors">Projectors</option>
-                    <option value="dashcams">Dashcams</option>
-                    <option value="supercams">Supercams</option>
-                    <option value="home-studio">Home Studio</option>
-                    <option value="gaming">Gaming</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block mb-1 font-extrabold uppercase">Badge Tag</label>
-                  <select
-                    value={formData.badge}
-                    onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                  >
-                    <option value="HOT">HOT</option>
-                    <option value="NEW">NEW</option>
-                    <option value="SALE">SALE</option>
-                    <option value="BESTSELLER">BESTSELLER</option>
-                    <option value="FLAT 48% OFF">FLAT 48% OFF</option>
-                    <option value="SOLAR 4G">SOLAR 4G</option>
-                    <option value="WIRELESS">WIRELESS</option>
-                    <option value="4K">4K</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Homepage Section Placement Toggles */}
-              <div className="bg-[#e8eeff]/60 border border-[#082f89]/20 rounded-xl p-3.5 space-y-2">
-                <label className="block font-extrabold uppercase text-[#082f89]">Homepage Display Sections</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
-                    <input
-                      type="checkbox"
-                      checked={Boolean(formData.isDeal)}
-                      onChange={(e) => setFormData({ ...formData, isDeal: e.target.checked })}
-                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
-                    />
-                    <span className="text-xs font-extrabold text-[#07152e]">Deals in FOCUS</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
-                    <input
-                      type="checkbox"
-                      checked={Boolean(formData.isNewArrival)}
-                      onChange={(e) => setFormData({ ...formData, isNewArrival: e.target.checked })}
-                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
-                    />
-                    <span className="text-xs font-extrabold text-[#07152e]">New Arrivals</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
-                    <input
-                      type="checkbox"
-                      checked={Boolean(formData.isBestSeller)}
-                      onChange={(e) => setFormData({ ...formData, isBestSeller: e.target.checked })}
-                      className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
-                    />
-                    <span className="text-xs font-extrabold text-[#07152e]">Best Sellers</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block mb-1 font-extrabold uppercase">Selling Price (₹) *</label>
+                  <label className="block mb-1 font-extrabold uppercase">Product Title / Name *</label>
                   <input
-                    type="number"
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    placeholder="1999"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="e.g. RGMS Smart 4G Solar Surveillance Camera"
                     className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block mb-1 font-extrabold uppercase">Original Price (₹)</label>
-                  <input
-                    type="number"
-                    value={formData.oldPrice}
-                    onChange={(e) => setFormData({ ...formData, oldPrice: e.target.value })}
-                    placeholder="3999"
-                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-1 font-extrabold uppercase">Stock Count</label>
-                  <input
-                    type="number"
-                    value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                    placeholder="20"
-                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                  />
-                </div>
-              </div>
-
-              {/* Product Image Section: File Upload or Direct URL */}
-              <div className="space-y-2 border-t border-b border-slate-100 py-3 my-2">
-                <label className="block font-extrabold uppercase">Product Image (Cloudinary Integration)</label>
-                <div className="flex items-center gap-3">
-                  <div className="w-16 h-16 rounded-xl bg-[#f8fafc] border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
-                    {formData.image ? (
-                      <img src={formData.image} alt="" className="max-h-full max-w-full object-contain" />
-                    ) : (
-                      <ImageIcon size={22} className="text-slate-300" />
-                    )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block mb-1 font-extrabold uppercase">Category</label>
+                    <select
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
+                    >
+                      <option value="gps-trackers">GPS Trackers</option>
+                      <option value="wifi-cameras">WiFi Cameras</option>
+                      <option value="4g-cameras">4G Cameras</option>
+                      <option value="solar-cameras">Solar Cameras</option>
+                      <option value="projectors">Projectors</option>
+                      <option value="dashcams">Dashcams</option>
+                      <option value="supercams">Supercams</option>
+                      <option value="home-studio">Home Studio</option>
+                      <option value="gaming">Gaming</option>
+                    </select>
                   </div>
-                  <div className="flex-1 space-y-2">
-                    <label className="inline-flex items-center gap-2 bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] font-extrabold text-xs px-4 py-2.5 rounded-xl cursor-pointer transition-colors shadow-xs">
-                      {uploadingImage ? <RefreshCw size={14} className="animate-spin" /> : <Upload size={14} />}
-                      <span>{uploadingImage ? 'Uploading to Cloudinary...' : 'Upload Image File'}</span>
-                      <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" disabled={uploadingImage} />
+
+                  <div>
+                    <label className="block mb-1 font-extrabold uppercase">Badge Tag</label>
+                    <select
+                      value={formData.badge}
+                      onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+                      className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
+                    >
+                      <option value="HOT">HOT</option>
+                      <option value="NEW">NEW</option>
+                      <option value="SALE">SALE</option>
+                      <option value="BESTSELLER">BESTSELLER</option>
+                      <option value="FLAT 48% OFF">FLAT 48% OFF</option>
+                      <option value="SOLAR 4G">SOLAR 4G</option>
+                      <option value="WIRELESS">WIRELESS</option>
+                      <option value="4K">4K</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Homepage Section Placement Toggles */}
+                <div className="bg-[#e8eeff]/60 border border-[#082f89]/20 rounded-xl p-3.5 space-y-2">
+                  <label className="block font-extrabold uppercase text-[#082f89]">Homepage Display Sections</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(formData.isDeal)}
+                        onChange={(e) => setFormData({ ...formData, isDeal: e.target.checked })}
+                        className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                      />
+                      <span className="text-xs font-extrabold text-[#07152e]">Deals in FOCUS</span>
                     </label>
-                    <p className="text-[10px] text-[#64748b] font-medium">Or paste direct image URL below:</p>
+
+                    <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(formData.isNewArrival)}
+                        onChange={(e) => setFormData({ ...formData, isNewArrival: e.target.checked })}
+                        className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                      />
+                      <span className="text-xs font-extrabold text-[#07152e]">New Arrivals</span>
+                    </label>
+
+                    <label className="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-slate-200 hover:border-[#082f89]">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(formData.isBestSeller)}
+                        onChange={(e) => setFormData({ ...formData, isBestSeller: e.target.checked })}
+                        className="w-4 h-4 text-[#082f89] rounded focus:ring-2 focus:ring-[#082f89]"
+                      />
+                      <span className="text-xs font-extrabold text-[#07152e]">Best Sellers</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block mb-1 font-extrabold uppercase">Selling Price (₹) *</label>
                     <input
-                      type="text"
-                      value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      placeholder="Paste Cloudinary image URL or file path..."
-                      className="w-full p-2.5 bg-[#f8fafc] border border-slate-200 rounded-xl text-[11px] font-mono focus:outline-none"
+                      type="number"
+                      value={formData.price}
+                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                      placeholder="1999"
+                      className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-1 font-extrabold uppercase">Original Price (₹)</label>
+                    <input
+                      type="number"
+                      value={formData.oldPrice}
+                      onChange={(e) => setFormData({ ...formData, oldPrice: e.target.value })}
+                      placeholder="3999"
+                      className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-1 font-extrabold uppercase">Stock Count</label>
+                    <input
+                      type="number"
+                      value={formData.stock}
+                      onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                      placeholder="20"
+                      className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
                     />
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <label className="block mb-1 font-extrabold uppercase">Product Description</label>
-                <textarea
-                  rows={2}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Comprehensive description of product..."
-                  className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none"
-                />
-              </div>
+                {/* Product Image Section: File Upload or Direct URL */}
+                <div className="space-y-2 border-t border-b border-slate-100 py-3 my-2">
+                  <label className="block font-extrabold uppercase">Product Image (Cloudinary Integration)</label>
+                  <div className="flex items-center gap-3">
+                    <div className="w-16 h-16 rounded-xl bg-[#f8fafc] border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                      {formData.image ? (
+                        <img src={formData.image} alt="" className="max-h-full max-w-full object-contain" />
+                      ) : (
+                        <ImageIcon size={22} className="text-slate-300" />
+                      )}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <label className="inline-flex items-center gap-2 bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] font-extrabold text-xs px-4 py-2.5 rounded-xl cursor-pointer transition-colors shadow-xs">
+                        {uploadingImage ? <RefreshCw size={14} className="animate-spin" /> : <Upload size={14} />}
+                        <span>{uploadingImage ? 'Uploading to Cloudinary...' : 'Upload Image File'}</span>
+                        <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" disabled={uploadingImage} />
+                      </label>
+                      <p className="text-[10px] text-[#64748b] font-medium">Or paste direct image URL below:</p>
+                      <input
+                        type="text"
+                        value={formData.image}
+                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                        placeholder="Paste Cloudinary image URL or file path..."
+                        className="w-full p-2.5 bg-[#f8fafc] border border-slate-200 rounded-xl text-[11px] font-mono focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              <div>
-                <label className="block mb-1 font-extrabold uppercase">Key Features (One feature per line)</label>
-                <textarea
-                  rows={3}
-                  value={formData.featuresText}
-                  onChange={(e) => setFormData({ ...formData, featuresText: e.target.value })}
-                  placeholder="Official RGMS 6 Month Warranty&#10;Remote Engine Cutoff&#10;Live Voice Listening"
-                  className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none font-mono"
-                />
-              </div>
+                <div>
+                  <label className="block mb-1 font-extrabold uppercase">Product Description</label>
+                  <textarea
+                    rows={2}
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Comprehensive description of product..."
+                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none"
+                  />
+                </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-[#07152e] font-extrabold text-xs transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-3 rounded-2xl bg-[#082f89] hover:bg-[#0e45c4] text-white font-extrabold text-xs shadow-lg transition-all active:scale-95 flex items-center gap-1.5"
-                >
-                  <CheckCircle2 size={16} />
-                  <span>{editingProduct ? 'Save Changes' : 'Publish Product'}</span>
-                </button>
-              </div>
-            </form>
+                <div>
+                  <label className="block mb-1 font-extrabold uppercase">Key Features (One feature per line)</label>
+                  <textarea
+                    rows={3}
+                    value={formData.featuresText}
+                    onChange={(e) => setFormData({ ...formData, featuresText: e.target.value })}
+                    placeholder="Official RGMS 6 Month Warranty&#10;Remote Engine Cutoff&#10;Live Voice Listening"
+                    className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none font-mono"
+                  />
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-[#07152e] font-extrabold text-xs transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 rounded-2xl bg-[#082f89] hover:bg-[#0e45c4] text-white font-extrabold text-xs shadow-lg transition-all active:scale-95 flex items-center gap-1.5"
+                  >
+                    <CheckCircle2 size={16} />
+                    <span>{editingProduct ? 'Save Changes' : 'Publish Product'}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <>
+            {/* Dashboard Stat Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Total Products</p>
+                  <p className="text-2xl font-black text-[#082f89] mt-1">{products.length}</p>
+                </div>
+                <div className="w-11 h-11 bg-[#e8eeff] text-[#082f89] rounded-xl flex items-center justify-center">
+                  <Package size={22} />
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Contact Messages</p>
+                  <p className="text-2xl font-black text-[#01a345] mt-1">
+                    {messages.length}
+                    {messages.filter(m => m.status === 'unread').length > 0 && (
+                      <span className="text-xs bg-[#f00102] text-white px-2 py-0.5 rounded-full ml-2 font-black">
+                        {messages.filter(m => m.status === 'unread').length} NEW
+                      </span>
+                    )}
+                  </p>
+                </div>
+                <div className="w-11 h-11 bg-[#e2f5ec] text-[#01a345] rounded-xl flex items-center justify-center">
+                  <MessageSquare size={22} />
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Active Badges</p>
+                  <p className="text-2xl font-black text-[#f00102] mt-1">
+                    {products.filter(p => p.badge && p.badge !== 'NONE').length}
+                  </p>
+                </div>
+                <div className="w-11 h-11 bg-[#fee2e2] text-[#f00102] rounded-xl flex items-center justify-center">
+                  <Sparkles size={22} />
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">In Stock Inventory</p>
+                  <p className="text-2xl font-black text-[#07152e] mt-1">
+                    {products.reduce((acc, p) => acc + (p.stock || 0), 0)} pcs
+                  </p>
+                </div>
+                <div className="w-11 h-11 bg-[#f1f5f9] text-[#07152e] rounded-xl flex items-center justify-center">
+                  <CheckCircle2 size={22} />
+                </div>
+              </div>
+            </div>
+
+            {/* Tab Navigation Bar */}
+            <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-200 shadow-xs">
+              <button
+                onClick={() => setActiveTab('products')}
+                className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${
+                  activeTab === 'products'
+                    ? 'bg-[#082f89] text-white shadow-md'
+                    : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#07152e]'
+                }`}
+              >
+                <Package size={16} />
+                <span>Products Catalog ({products.length})</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('messages')}
+                className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 relative ${
+                  activeTab === 'messages'
+                    ? 'bg-[#082f89] text-white shadow-md'
+                    : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#07152e]'
+                }`}
+              >
+                <MessageSquare size={16} />
+                <span>Contact Messages ({messages.length})</span>
+                {messages.filter((m) => m.status === 'unread').length > 0 && (
+                  <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded-full uppercase animate-pulse">
+                    {messages.filter((m) => m.status === 'unread').length} NEW
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Action Bar & Table Controls */}
+            {activeTab === 'products' && (
+              <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                  <div>
+                    <h2 className="text-xl font-black text-[#07152e]">Store Inventory Catalog</h2>
+                    <p className="text-xs text-[#64748b] font-medium mt-0.5">Manage products across Home sections, Categories, and Search</p>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                    {products.length > 0 && (
+                      <button
+                        onClick={handleClearAll}
+                        className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] text-xs font-black px-4 py-3 rounded-2xl transition-all shadow-xs flex items-center justify-center gap-1.5"
+                        title="Delete all products from inventory"
+                      >
+                        <Trash2 size={16} />
+                        <span>Delete All Products</span>
+                      </button>
+                    )}
+
+                    <button
+                      onClick={openAddModal}
+                      className="bg-[#082f89] hover:bg-[#0e45c4] text-white text-xs font-black px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"
+                    >
+                      <Plus size={18} />
+                      <span>Add New Product</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filters Bar */}
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="relative flex-1 w-full">
+                    <Search size={16} className="absolute left-3.5 top-3 text-slate-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search products by title or ID..."
+                      className="w-full pl-10 pr-4 py-2.5 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold text-[#07152e] focus:outline-none focus:ring-2 focus:ring-[#082f89]"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide w-full md:w-auto pb-1 md:pb-0">
+                    <SlidersHorizontal size={16} className="text-slate-400 shrink-0" />
+                    {['all', 'gps-trackers', 'wifi-cameras', '4g-cameras', 'solar-cameras', 'projectors', 'dashcams', 'supercams'].map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all uppercase tracking-wider ${
+                          selectedCategory === cat
+                            ? 'bg-[#082f89] text-white shadow-sm'
+                            : 'bg-[#f1f5f9] text-[#64748b] hover:bg-[#e8eeff] hover:text-[#082f89]'
+                        }`}
+                      >
+                        {cat.replace('-', ' ')}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Product Inventory Table */}
+                <div className="overflow-x-auto border border-slate-100 rounded-2xl">
+                  <table className="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                      <tr className="bg-[#041b54] text-white text-[11px] font-black uppercase tracking-wider">
+                        <th className="p-3.5 pl-5">Product Details</th>
+                        <th className="p-3.5">Category</th>
+                        <th className="p-3.5">Price</th>
+                        <th className="p-3.5">Badge</th>
+                        <th className="p-3.5">Stock</th>
+                        <th className="p-3.5 pr-5 text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-xs font-semibold text-[#07152e]">
+                      {filteredProducts.length === 0 ? (
+                        <tr>
+                          <td colSpan={6} className="py-10 text-center text-slate-400 font-bold">
+                            No products found matching your search query.
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredProducts.map((prod) => (
+                          <tr key={prod.id} className="hover:bg-slate-50 transition-colors">
+                            <td className="p-3.5 pl-5">
+                              <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-xl bg-[#f8fafc] p-1 border border-slate-200 shrink-0 flex items-center justify-center overflow-hidden">
+                                  <img src={prod.image} alt="" className="max-h-full max-w-full object-contain" />
+                                </div>
+                                <div>
+                                  <p className="font-extrabold text-[#07152e] text-[13px] line-clamp-1">{prod.name}</p>
+                                  <p className="text-[10.5px] text-[#64748b] font-mono mt-0.5">ID: {prod.id}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="bg-[#e8eeff] text-[#082f89] text-[10.5px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                                {prod.category}
+                              </span>
+                            </td>
+                            <td className="p-3.5 font-extrabold text-[#082f89]">
+                              ₹{prod.price}
+                              {prod.oldPrice && (
+                                <span className="text-[11px] text-[#94a3b8] line-through font-semibold ml-1.5">₹{prod.oldPrice}</span>
+                              )}
+                            </td>
+                            <td className="p-3.5">
+                              {prod.badge ? (
+                                <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase">
+                                  {prod.badge}
+                                </span>
+                              ) : (
+                                <span className="text-slate-300">-</span>
+                              )}
+                            </td>
+                            <td className="p-3.5">
+                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                                (prod.stock || 20) > 5 ? 'bg-[#e2f5ec] text-[#01a345]' : 'bg-[#fee2e2] text-[#f00102]'
+                              }`}>
+                                {prod.stock !== undefined ? prod.stock : 20} in stock
+                              </span>
+                            </td>
+                            <td className="p-3.5 pr-5 text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => openEditModal(prod)}
+                                  className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] p-2 rounded-xl transition-all"
+                                  title="Edit Product"
+                                >
+                                  <Edit3 size={15} />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteProduct(prod.id, prod.name)}
+                                  className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] p-2 rounded-xl transition-all"
+                                  title="Delete Product"
+                                >
+                                  <Trash2 size={15} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Contact Messages View */}
+            {activeTab === 'messages' && (
+              <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                  <div>
+                    <h2 className="text-xl font-black text-[#07152e]">Customer Contact Messages</h2>
+                    <p className="text-xs text-[#64748b] font-medium mt-0.5">Inquiries submitted from the Contact Us form</p>
+                  </div>
+
+                  <button
+                    onClick={loadMessages}
+                    className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all"
+                  >
+                    <RefreshCw size={14} className={loadingMessages ? 'animate-spin' : ''} />
+                    <span>Refresh Messages</span>
+                  </button>
+                </div>
+
+                {messages.length === 0 ? (
+                  <div className="py-16 text-center text-slate-400 space-y-2">
+                    <MessageSquare size={40} className="mx-auto text-slate-300" />
+                    <p className="text-sm font-bold text-[#07152e]">No contact messages received yet</p>
+                    <p className="text-xs text-[#64748b]">Submissions from visitors on the Contact Us page will show up here.</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto border border-slate-100 rounded-2xl">
+                    <table className="w-full text-left border-collapse min-w-[800px]">
+                      <thead>
+                        <tr className="bg-[#041b54] text-white text-[11px] font-black uppercase tracking-wider">
+                          <th className="p-3.5 pl-5">Status</th>
+                          <th className="p-3.5">Customer</th>
+                          <th className="p-3.5">Contact Details</th>
+                          <th className="p-3.5">Topic / Subject</th>
+                          <th className="p-3.5">Date</th>
+                          <th className="p-3.5 pr-5 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 text-xs font-semibold text-[#07152e]">
+                        {messages.map((msg) => (
+                          <tr key={msg.id} className={`hover:bg-slate-50 transition-colors ${msg.status === 'unread' ? 'bg-[#e8eeff]/30 font-bold' : ''}`}>
+                            <td className="p-3.5 pl-5">
+                              {msg.status === 'unread' ? (
+                                <span className="bg-[#f00102] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase animate-pulse">
+                                  NEW
+                                </span>
+                              ) : (
+                                <span className="bg-slate-100 text-slate-600 text-[9.5px] font-bold px-2 py-0.5 rounded uppercase">
+                                  READ
+                                </span>
+                              )}
+                            </td>
+                            <td className="p-3.5 font-extrabold text-[#07152e]">
+                              {msg.name}
+                            </td>
+                            <td className="p-3.5 space-y-0.5">
+                              <p className="flex items-center gap-1 text-[#082f89] font-bold"><Phone size={12} /> {msg.phone}</p>
+                              {msg.email && <p className="flex items-center gap-1 text-[#64748b] text-[11px]"><Mail size={12} /> {msg.email}</p>}
+                            </td>
+                            <td className="p-3.5">
+                              <span className="bg-[#e8eeff] text-[#082f89] text-[10.5px] font-black px-2.5 py-0.5 rounded-lg">
+                                {msg.subject}
+                              </span>
+                              <p className="text-[11.5px] text-[#4a5568] font-normal line-clamp-2 mt-1 max-w-xs">{msg.message}</p>
+                            </td>
+                            <td className="p-3.5 text-[#64748b] text-[11px] whitespace-nowrap">
+                              {new Date(msg.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                            </td>
+                            <td className="p-3.5 pr-5 text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => {
+                                    setSelectedMessage(msg);
+                                    if (msg.status === 'unread') handleMarkRead(msg.id);
+                                  }}
+                                  className="bg-[#e8eeff] hover:bg-[#082f89] hover:text-white text-[#082f89] p-2 rounded-xl transition-all flex items-center gap-1 text-[11px] font-bold"
+                                  title="View Full Inquiry Details"
+                                >
+                                  <Eye size={14} />
+                                  <span className="hidden sm:inline">View</span>
+                                </button>
+
+                                <a
+                                  href={`https://wa.me/${msg.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(msg.name)},%20thank%20you%20for%20contacting%20RGMS%20Support!`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="bg-[#25D366] hover:bg-[#20bd5a] text-white p-2 rounded-xl transition-all flex items-center gap-1 text-[11px] font-bold shadow-xs"
+                                  title="Reply via WhatsApp"
+                                >
+                                  <WhatsAppIcon size={14} />
+                                  <span className="hidden xl:inline">WhatsApp</span>
+                                </a>
+
+                                {msg.status === 'unread' && (
+                                  <button
+                                    onClick={() => handleMarkRead(msg.id)}
+                                    className="bg-[#e2f5ec] hover:bg-[#01a345] hover:text-white text-[#01a345] p-2 rounded-xl transition-all"
+                                    title="Mark as Read"
+                                  >
+                                    <Check size={14} />
+                                  </button>
+                                )}
+
+                                <button
+                                  onClick={() => handleDeleteMessage(msg.id)}
+                                  className="bg-[#fee2e2] hover:bg-[#f00102] hover:text-white text-[#f00102] p-2 rounded-xl transition-all"
+                                  title="Delete Message"
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+      </main>
 
       {/* View Selected Inquiry Detail Modal */}
       {selectedMessage && (
