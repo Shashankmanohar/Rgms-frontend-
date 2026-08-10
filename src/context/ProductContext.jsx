@@ -101,6 +101,10 @@ export const ProductProvider = ({ children }) => {
       });
       return createdProd;
     } catch (err) {
+      const token = localStorage.getItem('rgms_admin_token');
+      if (token) {
+        throw err;
+      }
       // Fallback local creation if token/backend not configured
       const fallbackProd = {
         id: `prod-${Date.now()}`,
@@ -132,6 +136,10 @@ export const ProductProvider = ({ children }) => {
       });
       return updatedProd;
     } catch (err) {
+      const token = localStorage.getItem('rgms_admin_token');
+      if (token) {
+        throw err;
+      }
       setProducts((prev) => {
         const updated = prev.map((p) => (p.id === id ? { ...p, ...updatedFields } : p));
         localStorage.setItem('rgms_products', JSON.stringify(updated));
@@ -144,14 +152,22 @@ export const ProductProvider = ({ children }) => {
   const deleteProduct = async (id) => {
     try {
       await deleteProductAPI(id);
+      setProducts((prev) => {
+        const updated = prev.filter((p) => p.id !== id);
+        localStorage.setItem('rgms_products', JSON.stringify(updated));
+        return updated;
+      });
     } catch (err) {
-      // ignore
+      const token = localStorage.getItem('rgms_admin_token');
+      if (token) {
+        throw err;
+      }
+      setProducts((prev) => {
+        const updated = prev.filter((p) => p.id !== id);
+        localStorage.setItem('rgms_products', JSON.stringify(updated));
+        return updated;
+      });
     }
-    setProducts((prev) => {
-      const updated = prev.filter((p) => p.id !== id);
-      localStorage.setItem('rgms_products', JSON.stringify(updated));
-      return updated;
-    });
   };
 
   // Clear All Products

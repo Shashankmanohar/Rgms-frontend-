@@ -10,6 +10,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  *  - Respects prefers-reduced-motion
  */
 export default function useCarousel({ autoplay = false, interval = 5000, itemSelector = '[data-slide]' } = {}) {
+  const [scrollerNode, setScrollerNode] = useState(null);
   const scrollerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [count, setCount] = useState(0);
@@ -18,6 +19,11 @@ export default function useCarousel({ autoplay = false, interval = 5000, itemSel
   const startX = useRef(0);
   const startLeft = useRef(0);
   const moved = useRef(false);
+
+  const setRef = useCallback((node) => {
+    scrollerRef.current = node;
+    setScrollerNode(node);
+  }, []);
 
   const reducedMotion = useRef(
     typeof window !== 'undefined' &&
@@ -40,33 +46,52 @@ export default function useCarousel({ autoplay = false, interval = 5000, itemSel
     const target = slides[Math.max(0, Math.min(i, slides.length - 1))];
     if (target) {
       el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: reducedMotion.current ? 'auto' : 'smooth' });
+      setActiveIndex(i); // Provide instant visual dot highlight feedback
     }
   }, [itemSelector]);
 
-  // Track active slide via IntersectionObserver
+  // Track active slide via IntersectionObserver + MutationObserver for dynamic slide count updates
   useEffect(() => {
-    const el = scrollerRef.current;
+    const el = scrollerNode;
     if (!el) return;
-    const slides = Array.from(el.querySelectorAll(itemSelector));
-    setCount(slides.length);
-    if (!slides.length) return;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        let best = null;
-        entries.forEach((e) => {
-          if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
-        });
-        if (best?.isIntersecting) {
-          const idx = slides.indexOf(best.target);
-          if (idx !== -1) setActiveIndex(idx);
-        }
-      },
-      { root: el, threshold: [0.55, 0.75, 1] }
-    );
-    slides.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, [itemSelector]);
+    let io;
+
+    const setupObserver = () => {
+      if (io) io.disconnect();
+      const slides = Array.from(el.querySelectorAll(itemSelector));
+      setCount(slides.length);
+      if (!slides.length) return;
+
+      io = new IntersectionObserver(
+        (entries) => {
+          let best = null;
+          entries.forEach((e) => {
+            if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+          });
+          if (best?.isIntersecting) {
+            const idx = slides.indexOf(best.target);
+            if (idx !== -1) setActiveIndex(idx);
+          }
+        },
+        { root: el, threshold: [0.55, 0.75, 1] }
+      );
+      slides.forEach((s) => io.observe(s));
+    };
+
+    setupObserver();
+
+    // Re-bind when slides are dynamically added, removed, or changed
+    const mutationObserver = new MutationObserver(() => {
+      setupObserver();
+    });
+    mutationObserver.observe(el, { childList: true, subtree: true });
+
+    return () => {
+      if (io) io.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, [scrollerNode, itemSelector]);
 
   // Autoplay
   useEffect(() => {
@@ -80,8 +105,10 @@ export default function useCarousel({ autoplay = false, interval = 5000, itemSel
       const target = slides[next];
       if (next === 0) {
         el.scrollTo({ left: 0, behavior: 'smooth' });
+        setActiveIndex(0);
       } else if (target) {
         el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: 'smooth' });
+        setActiveIndex(next);
       }
     }, interval);
     return () => clearInterval(t);
@@ -151,7 +178,7 @@ export default function useCarousel({ autoplay = false, interval = 5000, itemSel
   };
 
   const scrollerProps = {
-    ref: scrollerRef,
+    ref: setRef,
     tabIndex: 0,
     onMouseDown,
     onMouseMove,
@@ -163,7 +190,7 @@ export default function useCarousel({ autoplay = false, interval = 5000, itemSel
     onFocus: () => setIsPaused(true),
     onBlur: () => setIsPaused(false),
     onPointerLeave: () => setIsPaused(false),
-    style: { cursor: 'grab', touchAction: 'pan-y' },
+    style: { cursor: 'grab', touchAction: 'pan-x pan-y' },
   };
 
   return {

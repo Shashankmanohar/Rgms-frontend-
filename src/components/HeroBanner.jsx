@@ -60,7 +60,7 @@ const HeroBanner = () => {
             </h2>
           </div>
           <span className="hidden sm:inline-block text-xs font-bold text-[#64748b]">
-            Scroll to view all 9 categories →
+            Scroll to view all 5 categories →
           </span>
         </div>
 
@@ -70,24 +70,7 @@ const HeroBanner = () => {
           aria-label="Shop by category"
         >
           {categories.map((c) => {
-            const getCategoryTag = (name) => {
-              const n = name.toLowerCase();
-              if (n.includes('gps')) return { label: 'HOT', color: 'bg-[#f00102]' };
-              if (n.includes('wifi')) return { label: '360° AI', color: 'bg-[#082f89]' };
-              if (n.includes('4g')) return { label: '4G SIM', color: 'bg-[#01a345]' };
-              if (n.includes('solar')) return { label: 'SOLAR', color: 'bg-[#FF9933]' };
-              if (n.includes('projector')) return { label: '4K HD', color: 'bg-[#082f89]' };
-              if (n.includes('dash')) return { label: '3-IN-1', color: 'bg-[#01a345]' };
-              if (n.includes('super')) return { label: 'TRIPLE LENS', color: 'bg-[#f00102]' };
-              if (n.includes('studio')) return { label: 'PRO AUDIO', color: 'bg-[#082f89]' };
-              if (n.includes('gaming')) return { label: 'GEAR', color: 'bg-[#01a345]' };
-              return { label: 'TOP', color: 'bg-[#082f89]' };
-            };
-
-            const tagInfo = getCategoryTag(c.name);
-            const targetUrl = c.name.toLowerCase().includes('gps')
-              ? '/category/gps-trackers'
-              : `/category/${c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+            const targetUrl = `/category/${c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
             return (
               <Link
@@ -99,9 +82,11 @@ const HeroBanner = () => {
                 <div className="bg-gradient-to-b from-white via-white to-slate-50/80 hover:from-white hover:to-[#e8eeff]/50 border border-slate-200/90 hover:border-[#082f89]/40 rounded-3xl p-4 shadow-[0_6px_20px_rgba(8,47,137,0.06)] hover:shadow-[0_16px_35px_rgba(8,47,137,0.18)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
                   
                   {/* Top Badge Tag */}
-                  <span className={`absolute top-2.5 right-2.5 ${tagInfo.color} text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-sm tracking-wider uppercase z-10`}>
-                    {tagInfo.label}
-                  </span>
+                  {c.tag && (
+                    <span className={`absolute top-2.5 right-2.5 ${c.tagColor || 'bg-[#082f89]'} text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-sm tracking-wider uppercase z-10`}>
+                      {c.tag}
+                    </span>
+                  )}
 
                   {/* Glowing Ring Frame Image */}
                   <div className="w-[84px] h-[84px] sm:w-[94px] sm:h-[94px] rounded-full p-1 bg-gradient-to-tr from-[#082f89]/20 via-[#01a345]/30 to-[#082f89]/20 group-hover:from-[#082f89] group-hover:to-[#01a345] transition-all duration-300 my-2 shadow-inner">

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { Footer, WhatsAppIcon } from './BottomSections';
 import { dealsProducts, formatPrice, newArrivals, bestSellers } from '../mock/mock';
@@ -27,10 +27,11 @@ const CATEGORY_CONFIGS = {
     ],
     tabs: [
       { id: 'all', label: 'All Products' },
-      { id: 'gps', label: 'GPS Trackers' },
-      { id: 'camera', label: 'Security Cameras' },
-      { id: 'solar', label: '4G & Solar' },
-      { id: 'projector', label: 'Smart Projectors' },
+      { id: 'cctv', label: 'CCTV Camera' },
+      { id: 'gps', label: 'GPS Tracker' },
+      { id: 'accessories', label: 'Accessories' },
+      { id: 'access-control', label: 'Access Control' },
+      { id: 'intercom', label: 'Intercom' },
     ],
     matchProduct: () => true,
     faqs: [
@@ -379,8 +380,410 @@ const CATEGORY_CONFIGS = {
     tableRows: [
       ['RGMS Pro Wireless Gaming Controller', 'Bluetooth 5.0 / 2.4G', 'Up to 12 Hours', 'PC, Mobile, Android TV', '₹1,999'],
     ]
+  },
+
+  'dvr-nvr': {
+    name: 'DVR & NVR Systems',
+    badge: 'Official RGMS Recording Center',
+    title: 'Professional DVR & NVR Recording Systems',
+    description: 'Record, store, and stream multiple security camera channels with high-performance digital and network video recorders.',
+    whatsappTopic: 'DVR / NVR Systems',
+    iconBadges: [
+      { label: 'Multi-Channel Support', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Up to 4K Recording', icon: Eye, color: 'text-[#082f89]' },
+      { label: 'H.265+ Compression', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Recording Systems' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('dvr') || p.name.toLowerCase().includes('nvr'),
+    faqs: [
+      {
+        q: 'How many channels do your DVRs/NVRs support?',
+        a: 'We offer 4, 8, 16, and 32-channel models supporting up to 4K resolution per channel.',
+      },
+    ],
+    tableTitle: 'DVR & NVR Comparison',
+    tableSubtitle: 'High capacity video storage systems for continuous recording.',
+    tableHeaders: ['Model', 'Channels', 'Max Resolution', 'Storage Slot', 'Price'],
+    tableRows: [
+      ['RGMS Pro 8Ch NVR', '8 Channels', '4K Ultra HD', '1x SATA (Up to 8TB)', '₹4,999'],
+      ['RGMS Smart 4Ch DVR', '4 Channels', '5MP Lite', '1x SATA (Up to 6TB)', '₹2,499'],
+    ]
+  },
+
+  'bullet-dome-camera': {
+    name: 'Bullet & Dome Cameras',
+    badge: 'Official RGMS Surveillance Lenses',
+    title: 'Commercial Dome & Weatherproof Bullet Cameras',
+    description: 'Durable dome cameras for discrete indoor monitoring and heavy-duty bullet cameras for weatherproof outdoor surveillance.',
+    whatsappTopic: 'Bullet and Dome Cameras',
+    iconBadges: [
+      { label: 'IP66 Weatherproof', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Infrared Night Vision', icon: Eye, color: 'text-[#082f89]' },
+      { label: 'Motion Detection', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Bullet & Dome' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('bullet') || p.name.toLowerCase().includes('dome'),
+    faqs: [
+      {
+        q: 'What is the main difference between Bullet and Dome cameras?',
+        a: 'Dome cameras are circular and designed for indoor ceiling mounts to provide a wider field of view discretely. Bullet cameras are longer, more visible, and designed for outdoor use with better weatherproof sealing.',
+      },
+    ],
+    tableTitle: 'Bullet vs Dome Cameras',
+    tableSubtitle: 'Choose the best style for your target coverage area.',
+    tableHeaders: ['Camera Style', 'Ideal Location', 'Lens Angle', 'IR Distance', 'Price'],
+    tableRows: [
+      ['Dome Indoor Camera', 'Ceiling / Indoors', '110 Degrees', '20 Meters', '₹1,499'],
+      ['Bullet Outdoor Camera', 'Wall / Outdoors', '90 Degrees', '30 Meters', '₹1,999'],
+    ]
+  },
+
+  'wired-gps': {
+    name: 'Wired GPS Trackers',
+    badge: 'Official RGMS Vehicle Immobilizers',
+    title: 'Hardwired Vehicle GPS Trackers & Engine Locks',
+    description: 'Permanently connected anti-theft trackers with remote engine cutoff relay, ignition alerts, and real-time fleet analytics.',
+    whatsappTopic: 'Wired GPS Trackers',
+    iconBadges: [
+      { label: 'Remote Engine Lock', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Ignition Status Alerts', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Geofence Boundaries', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: '6 Months Warranty', icon: Radio, color: 'text-[#FF9933]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Wired GPS' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('gps wire') || p.name.toLowerCase().includes('engine lock') || (p.category === 'gps-trackers' && p.name.toLowerCase().includes('wire')),
+    faqs: [
+      {
+        q: 'Does installing a wired GPS tracker void my vehicle’s warranty?',
+        a: 'No, the installation uses standard relay couplers and does not involve cutting the main wiring harness, keeping your warranty safe.',
+      },
+    ],
+    tableTitle: 'Wired GPS Tracker Features',
+    tableSubtitle: 'Hardwired safety systems for cars, bikes, and trucks.',
+    tableHeaders: ['Model Name', 'Engine Lock', 'Audio Monitoring', 'Warranty', 'Price'],
+    tableRows: [
+      ['GPS Wire with Engine Lock', '✓ Yes', 'No', '6 Months Free', '₹1,999'],
+      ['GPS Wire Audio & Engine Lock', '✓ Yes', '✓ Yes', '6 Months Free', '₹2,499'],
+    ]
+  },
+
+  'magnet-gps': {
+    name: 'Magnetic GPS Trackers',
+    badge: 'Official RGMS Wireless Trackers',
+    title: 'Portable Neodymium Magnetic GPS Trackers',
+    description: 'Strong magnet trackers with massive battery backup, live voice monitoring, and zero installation or wiring requirement.',
+    whatsappTopic: 'Magnetic GPS Trackers',
+    iconBadges: [
+      { label: 'No Wiring Required', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Extra-Strong Magnets', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Live Audio Monitor', icon: Mic, color: 'text-[#FF9933]' },
+      { label: 'Up to 90 Days Sleep', icon: Battery, color: 'text-[#01a345]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Magnetic GPS' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('magnet') || p.name.toLowerCase().includes('magnetic') || (p.category === 'gps-trackers' && p.name.toLowerCase().includes('magnet')),
+    faqs: [
+      {
+        q: 'Can the magnetic tracker fall off on bumpy roads?',
+        a: 'No, we use industrial-grade neodymium magnets that require over 20kg of pull force to separate, keeping them completely secure.',
+      },
+    ],
+    tableTitle: 'Magnetic GPS Tracker Lineup',
+    tableSubtitle: 'Wireless asset trackers for cargo and fleets.',
+    tableHeaders: ['Battery Capacity', 'Active Life', 'Voice Monitor', 'Magnet Strength', 'Price'],
+    tableRows: [
+      ['5,000 mAh Model', '15-20 Days', '✓ Yes', 'Extra Strong', '₹2,999'],
+      ['10,000 mAh Model', '30-40 Days', '✓ Yes', 'Heavy Duty', '₹3,999'],
+    ]
+  },
+
+  'biometric': {
+    name: 'Biometric Access Control',
+    badge: 'Official RGMS Access Logs',
+    title: 'Biometric Fingerprint & Facial Attendance Systems',
+    description: 'Track employee attendance and secure restricted office entries with highly accurate biometric scanners.',
+    whatsappTopic: 'Biometric Attendance Systems',
+    iconBadges: [
+      { label: 'Fingerprint + RFID', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Attendance Reports', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Wiegand Interface', icon: Radio, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Biometrics' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('biometric') || p.name.toLowerCase().includes('fingerprint') || (p.category === 'access-control' && p.name.toLowerCase().includes('biometric')),
+    faqs: [
+      {
+        q: 'How do I download attendance logs?',
+        a: 'You can pull attendance reports directly to a USB pen drive or connect the device to your local network/PC software.',
+      },
+    ],
+    tableTitle: 'Biometric Scanner Comparison',
+    tableSubtitle: 'Manage attendance and security logs easily.',
+    tableHeaders: ['User Capacity', 'Log Capacity', 'Verification Mode', 'Power', 'Price'],
+    tableRows: [
+      ['3,000 Users', '100,000 Logs', 'Fingerprint / RFID / PIN', '12V DC', '₹4,999'],
+    ]
+  },
+
+  'door-lock': {
+    name: 'Smart Door Locks',
+    badge: 'Official RGMS Home Entry',
+    title: 'Keyless Smart Fingerprint & PIN Door Locks',
+    description: 'Secure your homes and luxury offices with premium smart handles supporting fingerprints, passcode entry, card access, and emergency key.',
+    whatsappTopic: 'Smart Door Locks',
+    iconBadges: [
+      { label: 'Fingerprint Handle', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Passcode & Card Lock', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Emergency Key Access', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Radio, color: 'text-[#082f89]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Smart Locks' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('door lock') || p.name.toLowerCase().includes('smart lock') || (p.category === 'access-control' && p.name.toLowerCase().includes('lock')),
+    faqs: [
+      {
+        q: 'What happens if the smart lock battery dies completely?',
+        a: 'You can power the lock temporarily using a power bank plugged into the emergency micro-USB port on the front handle, or use the mechanical emergency override key.',
+      },
+    ],
+    tableTitle: 'Smart Door Lock Specifications',
+    tableSubtitle: 'Durable smart handles for maximum access security.',
+    tableHeaders: ['Finish Style', 'Lock Methods', 'Battery Type', 'Warranty', 'Price'],
+    tableRows: [
+      ['Matte Black / Copper', 'Fingerprint, PIN, RFID, Key', '4x AA Batteries', '6 Months Free', '₹5,999'],
+    ]
+  },
+
+  'epbx': {
+    name: 'EPBx Telecom Systems',
+    badge: 'Official RGMS PBX Exchanges',
+    title: 'EPBx Internal Telephone Exchange Systems',
+    description: 'Seamless office and hospital communication systems supporting multi-line routing and extension dialling.',
+    whatsappTopic: 'EPBx Systems',
+    iconBadges: [
+      { label: 'Multi-Line Routing', icon: Radio, color: 'text-[#01a345]' },
+      { label: 'Extension Dialling', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Music on Hold', icon: ShieldCheck, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All EPBx Systems' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('epbx') || p.name.toLowerCase().includes('pbx') || (p.category === 'intercom' && p.name.toLowerCase().includes('epbx')),
+    faqs: [
+      {
+        q: 'Do your EPBx systems work with standard analog phones?',
+        a: 'Yes, they are compatible with standard RJ11 analog desk phones and telephone lines.',
+      },
+    ],
+    tableTitle: 'EPBx Systems Exchange Specs',
+    tableSubtitle: 'PBX networks for office telephone management.',
+    tableHeaders: ['Outside Lines', 'Extension Ports', 'Feature Support', 'Warranty', 'Price'],
+    tableRows: [
+      ['8 Lines', '16 Extensions', 'Transfer, Forward, Hold', '6 Months', '₹8,999'],
+    ]
+  },
+
+  'tg-phone': {
+    name: 'TG Phone Handsets',
+    badge: 'Official RGMS Intercom Extension',
+    title: 'TG Phone Intercom Telephone Handsets',
+    description: 'Reliable analog and digital desk telephone handsets compatible with EPBx and standard telephone networks.',
+    whatsappTopic: 'TG Phone Handsets',
+    iconBadges: [
+      { label: 'Clear Voice Intercom', icon: Mic, color: 'text-[#01a345]' },
+      { label: 'Universal Compatibility', icon: ShieldCheck, color: 'text-[#082f89]' },
+      { label: 'Speed Dial Buttons', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Intercom Phones' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('tg phone') || p.name.toLowerCase().includes('handset') || (p.category === 'intercom' && p.name.toLowerCase().includes('phone')),
+    faqs: [
+      {
+        q: 'Do these phones require additional batteries or power adapters?',
+        a: 'No, standard analog handsets run directly on standard telephone line power from your EPBx system.',
+      },
+    ],
+    tableTitle: 'Desk Intercom Handsets Specs',
+    tableSubtitle: 'Universal telephone handsets for internal calling.',
+    tableHeaders: ['Dialer Style', 'Connection', 'Volume Control', 'Price'],
+    tableRows: [
+      ['Keypad with Display', 'RJ11 Line Cable', 'Adjustable Ringer', '₹999'],
+    ]
+  },
+
+  'cctv-camera': {
+    name: 'CCTV Camera',
+    badge: 'Official RGMS Surveillance Systems',
+    title: 'CCTV Cameras, DVR & NVR Systems',
+    description: 'Complete CCTV surveillance solutions including DVR/NVR recorders, Bullet, Dome, 4G SIM, Solar, and WiFi cameras for homes, offices, and commercial sites.',
+    whatsappTopic: 'CCTV Camera Systems',
+    iconBadges: [
+      { label: 'DVR / NVR Recording', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: '4G & WiFi Ready', icon: Radio, color: 'text-[#082f89]' },
+      { label: 'AI Motion Detection', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All CCTV' },
+      { id: 'dvr', label: 'DVR / NVR' },
+      { id: 'bullet', label: 'Bullet / Dome' },
+      { id: '4g', label: '4G SIM Camera' },
+      { id: 'solar', label: 'Solar Camera' },
+      { id: 'wifi', label: 'Wifi Camera' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('camera') || p.name.toLowerCase().includes('cctv') || p.name.toLowerCase().includes('dvr') || p.name.toLowerCase().includes('nvr'),
+    faqs: [
+      {
+        q: 'What is the difference between DVR and NVR?',
+        a: 'DVR (Digital Video Recorder) works with analog cameras over coaxial cables. NVR (Network Video Recorder) works with IP cameras over network/ethernet cables and supports higher resolutions.',
+      },
+      {
+        q: 'Can I mix Bullet and Dome cameras in one system?',
+        a: 'Yes! RGMS DVR/NVR systems support mixing of bullet, dome, and IP cameras in a single recording setup.',
+      },
+    ],
+    tableTitle: 'CCTV Camera Comparison',
+    tableSubtitle: 'Choose the right surveillance system for your property.',
+    tableHeaders: ['Type', 'Connectivity', 'Resolution', 'Power', 'Price Range'],
+    tableRows: [
+      ['Bullet / Dome Camera', 'Coaxial / PoE', '2MP – 8MP', 'PoE / 12V DC', '₹1,499 – ₹4,999'],
+      ['4G SIM Camera', '4G SIM Card', '3MP – 18MP', '12V DC / Solar', '₹4,499 – ₹7,899'],
+      ['Solar Camera', 'Solar + 4G SIM', '3MP – 18MP', '100% Solar', '₹5,999 – ₹8,999'],
+      ['WiFi Camera', '2.4GHz WiFi', '3MP – 10MP', '5V USB / 12V DC', '₹1,199 – ₹3,499'],
+    ]
+  },
+
+  'accessories': {
+    name: 'Accessories',
+    badge: 'Official RGMS CCTV Accessories',
+    title: 'CCTV Accessories & Installation Hardware',
+    description: 'Everything you need for a complete CCTV installation — racks, SMPS, PoE switches, ethernet switches, junction boxes, cables, mounts, and more.',
+    whatsappTopic: 'CCTV Accessories',
+    iconBadges: [
+      { label: 'Genuine RGMS Parts', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Complete Kits Available', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Free Shipping India', icon: Radio, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Accessories' },
+      { id: 'rack', label: 'Rack / SMPS' },
+      { id: 'cable', label: 'Cables & Connectors' },
+      { id: 'mount', label: 'Mounts & Stands' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('accessory') || p.name.toLowerCase().includes('cable') || p.name.toLowerCase().includes('rack') || p.name.toLowerCase().includes('switch') || p.name.toLowerCase().includes('smps'),
+    faqs: [
+      {
+        q: 'Which SMPS is best for powering 4 or 8 CCTV cameras?',
+        a: 'For 4 cameras, a 5A SMPS works well. For 8 cameras, use a 10A SMPS with a distribution box for clean, stable power to each camera.',
+      },
+      {
+        q: 'What type of cable is used for CCTV installations?',
+        a: 'Coaxial cables (RG59/RG6) are used for analog CCTV, while Cat6 ethernet cables are used for IP/PoE cameras.',
+      },
+    ],
+    tableTitle: 'CCTV Accessories Overview',
+    tableSubtitle: 'Professional-grade parts for reliable CCTV installations.',
+    tableHeaders: ['Accessory', 'Use Case', 'Compatibility', 'Price Range'],
+    tableRows: [
+      ['Rack / Cabinet', 'Secure DVR & NVR storage', 'Universal', '₹1,999 – ₹5,999'],
+      ['SMPS Power Supply', 'Multi-camera power distribution', 'All CCTV cameras', '₹499 – ₹1,499'],
+      ['PoE Switch', 'IP camera power over ethernet', 'IP / PoE Cameras', '₹1,499 – ₹4,999'],
+      ['Junction Box', 'Outdoor cable protection', 'All CCTV Systems', '₹199 – ₹499'],
+      ['Camera Stand / Wall Mount', 'Mounting & positioning', 'Bullet / Dome Cameras', '₹99 – ₹499'],
+    ]
+  },
+
+  'access-control': {
+    name: 'Access Control',
+    badge: 'Official RGMS Smart Entry Systems',
+    title: 'Biometric & Smart Access Control Systems',
+    description: 'Secure your home, office, or factory with RGMS biometric fingerprint attendance systems, smart door locks, and access control panels.',
+    whatsappTopic: 'Access Control Systems',
+    iconBadges: [
+      { label: 'Biometric Fingerprint', icon: ShieldCheck, color: 'text-[#01a345]' },
+      { label: 'Smart Door Lock', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Attendance System', icon: Zap, color: 'text-[#082f89]' },
+      { label: '6 Months Warranty', icon: Radio, color: 'text-[#FF9933]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Access Control' },
+      { id: 'biometric', label: 'Biometric' },
+      { id: 'door', label: 'Door Lock' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('biometric') || p.name.toLowerCase().includes('fingerprint') || p.name.toLowerCase().includes('door lock') || p.name.toLowerCase().includes('access'),
+    faqs: [
+      {
+        q: 'How many fingerprints can the biometric system store?',
+        a: 'RGMS biometric systems can store up to 3000 fingerprint templates and 100,000 attendance records.',
+      },
+      {
+        q: 'Can the door lock work without power?',
+        a: 'Yes, RGMS smart door locks include a battery backup that keeps the lock operational during power cuts.',
+      },
+    ],
+    tableTitle: 'Access Control System Comparison',
+    tableSubtitle: 'Smart entry systems for homes, offices, and commercial premises.',
+    tableHeaders: ['Product', 'Technology', 'Capacity', 'Power', 'Price Range'],
+    tableRows: [
+      ['Biometric Attendance System', 'Fingerprint + RFID', '3000 Users', '12V DC', '₹4,999 – ₹9,999'],
+      ['Smart Door Lock', 'Fingerprint + PIN + Key', 'Unlimited PIN', 'AA Battery + Backup', '₹5,999 – ₹14,999'],
+    ]
+  },
+
+  'intercom': {
+    name: 'Intercom',
+    badge: 'Official RGMS Communication Systems',
+    title: 'Intercom & EPBx Communication Systems',
+    description: 'Professional intercom systems and EPBx telephone exchange solutions for homes, offices, hospitals, and multi-storey buildings.',
+    whatsappTopic: 'Intercom Systems',
+    iconBadges: [
+      { label: 'EPBx / PABX Systems', icon: Radio, color: 'text-[#01a345]' },
+      { label: 'TG Phone Handsets', icon: Mic, color: 'text-[#082f89]' },
+      { label: 'Multi-Extension', icon: Zap, color: 'text-[#FF9933]' },
+      { label: '6 Months Warranty', icon: ShieldCheck, color: 'text-[#f00102]' },
+    ],
+    tabs: [
+      { id: 'all', label: 'All Intercom' },
+      { id: 'epbx', label: 'EPBx Systems' },
+      { id: 'phone', label: 'TG Phone' },
+    ],
+    matchProduct: (p) => p.name.toLowerCase().includes('intercom') || p.name.toLowerCase().includes('epbx') || p.name.toLowerCase().includes('phone'),
+    faqs: [
+      {
+        q: 'What is an EPBx system?',
+        a: 'EPBx (Electronic Private Branch Exchange) is an internal telephone exchange that allows multiple extensions within a building to communicate with each other and with external lines.',
+      },
+      {
+        q: 'How many extensions can one EPBx system support?',
+        a: 'RGMS EPBx systems support from 4 to 64+ extensions depending on the model, suitable for small offices to large buildings.',
+      },
+    ],
+    tableTitle: 'Intercom & EPBx System Comparison',
+    tableSubtitle: 'Reliable internal communication for offices, hospitals, and residential buildings.',
+    tableHeaders: ['System', 'Extensions', 'Lines', 'Installation', 'Price Range'],
+    tableRows: [
+      ['EPBx 8+16 System', 'Up to 16 Extensions', '8 Outside Lines', 'Professional Install', '₹8,999 – ₹19,999'],
+      ['TG Phone Handset', 'Single Extension', 'Compatible with EPBx', 'Plug & Play', '₹999 – ₹2,499'],
+    ]
   }
 };
+
 
 const getCategoryConfig = (slug) => {
   const normalized = (slug || 'all').toLowerCase().trim();
@@ -399,6 +802,10 @@ const getCategoryConfig = (slug) => {
   if (normalized.includes('super')) return CATEGORY_CONFIGS['supercams'];
   if (normalized.includes('studio')) return CATEGORY_CONFIGS['home-studio'];
   if (normalized.includes('game') || normalized.includes('gaming')) return CATEGORY_CONFIGS['gaming'];
+  if (normalized.includes('cctv') || normalized.includes('bullet') || normalized.includes('dome') || normalized.includes('dvr') || normalized.includes('nvr')) return CATEGORY_CONFIGS['cctv-camera'];
+  if (normalized.includes('access') || normalized.includes('biometric') || normalized.includes('door-lock')) return CATEGORY_CONFIGS['access-control'];
+  if (normalized.includes('accessori') || normalized.includes('rack') || normalized.includes('smps') || normalized.includes('cable') || normalized.includes('mount')) return CATEGORY_CONFIGS['accessories'];
+  if (normalized.includes('intercom') || normalized.includes('epbx') || normalized.includes('phone')) return CATEGORY_CONFIGS['intercom'];
 
   const formattedName = normalized.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   return {
@@ -429,6 +836,7 @@ const getCategoryConfig = (slug) => {
 
 export const CategoryPage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { products: contextProducts } = useProducts();
   const [activeFilter, setActiveFilter] = useState('all');
@@ -457,12 +865,44 @@ export const CategoryPage = () => {
   const filteredProducts = useMemo(() => {
     let list = [...categoryProducts];
     if (activeFilter !== 'all') {
-      const f = activeFilter.toLowerCase();
-      list = list.filter((p) => 
-        p.name.toLowerCase().includes(f) || 
-        p.id.toLowerCase().includes(f)
-      );
-      if (list.length === 0) list = [...categoryProducts];
+      if (activeFilter === 'cctv') {
+        list = list.filter((p) => 
+          p.category === 'cctv-camera' || 
+          p.category === 'wifi-cameras' || 
+          p.category === '4g-cameras' || 
+          p.category === 'solar-cameras' || 
+          p.category === 'supercams' || 
+          p.category === 'dashcams' || 
+          (CATEGORY_CONFIGS['cctv-camera'] && CATEGORY_CONFIGS['cctv-camera'].matchProduct(p))
+        );
+      } else if (activeFilter === 'gps') {
+        list = list.filter((p) => 
+          p.category === 'gps-trackers' || 
+          (CATEGORY_CONFIGS['gps-trackers'] && CATEGORY_CONFIGS['gps-trackers'].matchProduct(p))
+        );
+      } else if (activeFilter === 'accessories') {
+        list = list.filter((p) => 
+          p.category === 'accessories' || 
+          (CATEGORY_CONFIGS['accessories'] && CATEGORY_CONFIGS['accessories'].matchProduct(p))
+        );
+      } else if (activeFilter === 'access-control') {
+        list = list.filter((p) => 
+          p.category === 'access-control' || 
+          (CATEGORY_CONFIGS['access-control'] && CATEGORY_CONFIGS['access-control'].matchProduct(p))
+        );
+      } else if (activeFilter === 'intercom') {
+        list = list.filter((p) => 
+          p.category === 'intercom' || 
+          (CATEGORY_CONFIGS['intercom'] && CATEGORY_CONFIGS['intercom'].matchProduct(p))
+        );
+      } else {
+        const f = activeFilter.toLowerCase();
+        list = list.filter((p) => 
+          p.name.toLowerCase().includes(f) || 
+          p.id.toLowerCase().includes(f) ||
+          (p.category && p.category.toLowerCase().includes(f))
+        );
+      }
     }
 
     if (sortBy === 'price-low') {
@@ -612,7 +1052,7 @@ export const CategoryPage = () => {
               All store products have been cleared. Products added via the <strong>Admin Panel</strong> will immediately appear here for your customers.
             </p>
             <Link
-              to="/admin"
+              to="/rgmsadmin"
               className="inline-flex items-center gap-2 bg-[#082f89] hover:bg-[#0e45c4] text-white text-xs font-black px-6 py-3 rounded-full shadow-lg transition-all transform active:scale-95"
             >
               Go to Admin Panel to Add Products
@@ -623,7 +1063,8 @@ export const CategoryPage = () => {
             {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="group bg-white rounded-3xl p-5 shadow-[0_4px_20px_rgba(8,47,137,0.06)] hover:shadow-[0_20px_40px_rgba(8,47,137,0.14)] hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 flex flex-col justify-between relative overflow-hidden"
+              onClick={() => navigate(`/product/${product.id}`)}
+              className="group bg-white rounded-3xl p-5 shadow-[0_4px_20px_rgba(8,47,137,0.06)] hover:shadow-[0_20px_40px_rgba(8,47,137,0.14)] hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 flex flex-col justify-between relative overflow-hidden cursor-pointer"
             >
               {/* Badge */}
               {product.badge && (
@@ -692,13 +1133,19 @@ export const CategoryPage = () => {
 
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(product);
+                    }}
                     className="bg-[#082f89] hover:bg-[#0e45c4] text-white text-[11.5px] font-bold py-2.5 rounded-xl shadow-md transition-all active:scale-95"
                   >
                     Add to Cart
                   </button>
                   <button
-                    onClick={() => setSelectedProduct(product)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProduct(product);
+                    }}
                     className="bg-slate-100 hover:bg-[#e8eeff] hover:text-[#082f89] text-[#07152e] text-[11.5px] font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1"
                   >
                     <Eye size={13} /> View Specs

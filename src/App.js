@@ -34,13 +34,13 @@ const Home = () => (
       <HeroBanner />
       <HeroProduct />
       <DealsSection />
+      <NewArrivals />
+      <BestSellers />
       <TrustBar />
       <WhyChooseUs />
       <VideoTestimonials />
       <TrustedBy />
-      <NewArrivals />
       <BrandSection />
-      <BestSellers />
       <UsageTypes />
       <FAQSection />
       <CustomerLove />
@@ -68,6 +68,7 @@ function App() {
               <Route path="/all-products" element={<CategoryPage />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/item/:id" element={<ProductDetailPage />} />
+              <Route path="/rgmsadmin" element={<AdminPanel />} />
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/admin-panel" element={<AdminPanel />} />
             </Routes>

@@ -31,7 +31,7 @@ export const Dots = ({ count, activeIndex, onSelect, className = '' }) => {
           aria-selected={i === activeIndex}
           aria-label={`Go to slide ${i + 1}`}
           onClick={() => onSelect(i)}
-          className="p-1 -m-1 focus:outline-none"
+          className="p-2.5 focus:outline-none flex items-center justify-center transition-all"
         >
           <span
             className={

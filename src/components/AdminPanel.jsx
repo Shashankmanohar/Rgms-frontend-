@@ -35,8 +35,8 @@ export const AdminPanel = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
 
   // Login form state
-  const [loginUsername, setLoginUsername] = useState('admin');
-  const [loginPassword, setLoginPassword] = useState('admin123');
+  const [loginUsername, setLoginUsername] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginSubmitting, setLoginSubmitting] = useState(false);
 
@@ -50,7 +50,7 @@ export const AdminPanel = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    category: 'wifi-cameras',
+    category: 'cctv-camera',
     price: '',
     oldPrice: '',
     badge: 'NEW',
@@ -151,7 +151,7 @@ export const AdminPanel = () => {
     setEditingProduct(null);
     setFormData({
       name: '',
-      category: 'wifi-cameras',
+      category: 'cctv-camera',
       price: '',
       oldPrice: '',
       badge: 'NEW',
@@ -170,7 +170,7 @@ export const AdminPanel = () => {
     setEditingProduct(prod);
     setFormData({
       name: prod.name || '',
-      category: prod.category || 'wifi-cameras',
+      category: prod.category || 'cctv-camera',
       price: prod.price || '',
       oldPrice: prod.oldPrice || '',
       badge: prod.badge || 'NEW',
@@ -210,15 +210,15 @@ export const AdminPanel = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.price) {
-      toast.error('Product Name and Price are required!');
+    if (!formData.name.trim()) {
+      toast.error('Product Name is required!');
       return;
     }
 
     const payload = {
       name: formData.name.trim(),
       category: formData.category,
-      price: Number(formData.price),
+      price: formData.price ? Number(formData.price) : null,
       oldPrice: formData.oldPrice ? Number(formData.oldPrice) : null,
       badge: formData.badge,
       stock: Number(formData.stock) || 0,
@@ -232,21 +232,28 @@ export const AdminPanel = () => {
       isBestSeller: Boolean(formData.isBestSeller),
     };
 
-    if (editingProduct) {
-      await updateProduct(editingProduct.id, payload);
-      toast.success('Product updated successfully!');
-    } else {
-      await addProduct(payload);
-      toast.success('New product added to catalog successfully!');
+    try {
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, payload);
+        toast.success('Product updated successfully!');
+      } else {
+        await addProduct(payload);
+        toast.success('New product added to catalog successfully!');
+      }
+      setIsModalOpen(false);
+    } catch (err) {
+      toast.error(err.message || 'Failed to save product');
     }
-
-    setIsModalOpen(false);
   };
 
   const handleDeleteProduct = async (id, name) => {
     if (window.confirm(`Are you sure you want to delete "${name}" from inventory?`)) {
-      await deleteProduct(id);
-      toast.success(`Deleted ${name}`);
+      try {
+        await deleteProduct(id);
+        toast.success(`Deleted ${name}`);
+      } catch (err) {
+        toast.error(err.message || `Failed to delete "${name}"`);
+      }
     }
   };
 
@@ -316,17 +323,11 @@ export const AdminPanel = () => {
                   type="password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  placeholder="admin123"
+                  placeholder="Enter Password"
                   className="w-full pl-9 pr-4 py-2.5 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold text-[#07152e] focus:outline-none focus:ring-2 focus:ring-[#082f89]"
                   required
                 />
               </div>
-            </div>
-
-            <div className="bg-[#f1f5f9] p-3 rounded-xl text-[11px] text-[#64748b] font-semibold space-y-0.5">
-              <p>🔑 Demo Admin Credentials:</p>
-              <p><span className="font-bold text-[#07152e]">Username:</span> admin</p>
-              <p><span className="font-bold text-[#07152e]">Password:</span> admin123</p>
             </div>
 
             <button
@@ -443,15 +444,16 @@ export const AdminPanel = () => {
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
                     >
-                      <option value="gps-trackers">GPS Trackers</option>
-                      <option value="wifi-cameras">WiFi Cameras</option>
-                      <option value="4g-cameras">4G Cameras</option>
-                      <option value="solar-cameras">Solar Cameras</option>
-                      <option value="projectors">Projectors</option>
-                      <option value="dashcams">Dashcams</option>
-                      <option value="supercams">Supercams</option>
-                      <option value="home-studio">Home Studio</option>
-                      <option value="gaming">Gaming</option>
+                      <option value="cctv-camera">CCTV Camera</option>
+                      <option value="wifi-cameras">WiFi Camera</option>
+                      <option value="solar-cameras">Solar Camera</option>
+                      <option value="gps-trackers">GPS Tracker</option>
+                      <option value="wired-gps">Wired GPS</option>
+                      <option value="magnet-gps">Magnetic GPS</option>
+                      <option value="accessories">Accessories</option>
+                      <option value="access-control">Access Control System</option>
+                      <option value="door-lock">Smart Door Lock</option>
+                      <option value="intercom">Intercom</option>
                     </select>
                   </div>
 
@@ -512,14 +514,13 @@ export const AdminPanel = () => {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="block mb-1 font-extrabold uppercase">Selling Price (₹) *</label>
+                    <label className="block mb-1 font-extrabold uppercase">Selling Price (₹)</label>
                     <input
                       type="number"
                       value={formData.price}
                       onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                       placeholder="1999"
                       className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#082f89]"
-                      required
                     />
                   </div>
 
@@ -750,7 +751,7 @@ export const AdminPanel = () => {
 
                   <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide w-full md:w-auto pb-1 md:pb-0">
                     <SlidersHorizontal size={16} className="text-slate-400 shrink-0" />
-                    {['all', 'gps-trackers', 'wifi-cameras', '4g-cameras', 'solar-cameras', 'projectors', 'dashcams', 'supercams'].map((cat) => (
+                    {['all', 'cctv-camera', 'wifi-cameras', 'solar-cameras', 'gps-trackers', 'wired-gps', 'magnet-gps', 'accessories', 'access-control', 'door-lock', 'intercom'].map((cat) => (
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
@@ -806,7 +807,7 @@ export const AdminPanel = () => {
                               </span>
                             </td>
                             <td className="p-3.5 font-extrabold text-[#082f89]">
-                              ₹{prod.price}
+                              {prod.price !== null && prod.price !== undefined && prod.price !== '' ? `₹${prod.price}` : 'Price on Request'}
                               {prod.oldPrice && (
                                 <span className="text-[11px] text-[#94a3b8] line-through font-semibold ml-1.5">₹{prod.oldPrice}</span>
                               )}

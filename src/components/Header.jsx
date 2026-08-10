@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, User, ShoppingCart, ChevronDown, Menu, X, Trash2, Minus, Plus, Sparkles, ShieldCheck, Camera, Tv, Flame, Zap, ArrowRight, Tag, Filter, Command, MessageCircle, Radio } from 'lucide-react';
+import { Search, User, ShoppingCart, ChevronDown, Menu, X, Trash2, Minus, Plus, Sparkles, ShieldCheck, Camera, Tv, Flame, Zap, ArrowRight, Tag, Filter, Command, MessageCircle, Radio, MapPin, Package, Phone } from 'lucide-react';
 import { megaMenu, formatPrice, dealsProducts, newArrivals, bestSellers } from '../mock/mock';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
@@ -132,6 +132,67 @@ const Header = () => {
             <Link to="/" className="py-4 hover:text-[#082f89] transition-colors relative after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-[2.5px] after:bg-[#082f89] after:rounded-full hover:after:w-full after:transition-all after:duration-300">
               Home
             </Link>
+
+            {/* Hoverable Categories Dropdown */}
+            <div className="relative group py-4">
+              <button className="flex items-center gap-1 hover:text-[#082f89] transition-colors focus:outline-none py-1">
+                <span>Categories</span>
+                <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300 text-[#082f89]" />
+              </button>
+              
+              {/* Dropdown Card */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[280px] bg-white rounded-2xl border border-slate-200 shadow-[0_20px_40px_rgba(8,47,137,0.12)] p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 origin-top pointer-events-auto z-50">
+                <Link to="/category/cctv-camera" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#e8eeff]/60 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-[#e8eeff] text-[#082f89] flex items-center justify-center shrink-0">
+                    <Camera size={16} />
+                  </div>
+                  <div>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">CCTV Camera</p>
+                    <p className="text-[10px] text-[#64748b] font-semibold">Cameras, DVR & NVR systems</p>
+                  </div>
+                </Link>
+
+                <Link to="/category/gps-trackers" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#e6f9ee]/60 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-[#e6f9ee] text-[#01a345] flex items-center justify-center shrink-0">
+                    <MapPin size={16} />
+                  </div>
+                  <div>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">GPS Tracker</p>
+                    <p className="text-[10px] text-[#64748b] font-semibold">Real-time vehicle security</p>
+                  </div>
+                </Link>
+
+                <Link to="/category/accessories" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#f3eeff]/60 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-[#f3eeff] text-[#7c3aed] flex items-center justify-center shrink-0">
+                    <Package size={16} />
+                  </div>
+                  <div>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">Accessories</p>
+                    <p className="text-[10px] text-[#64748b] font-semibold">SMPS, PoE switches, racks & cables</p>
+                  </div>
+                </Link>
+
+                <Link to="/category/access-control" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#fff0f0]/60 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-[#fff0f0] text-[#dc2626] flex items-center justify-center shrink-0">
+                    <ShieldCheck size={16} />
+                  </div>
+                  <div>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">Access Control</p>
+                    <p className="text-[10px] text-[#64748b] font-semibold">Biometrics & smart locks</p>
+                  </div>
+                </Link>
+
+                <Link to="/category/intercom" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#fffbeb]/60 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-[#fffbeb] text-[#d97706] flex items-center justify-center shrink-0">
+                    <Phone size={16} />
+                  </div>
+                  <div>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">Intercom</p>
+                    <p className="text-[10px] text-[#64748b] font-semibold">EPBx & internal voice systems</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
 
             <Link to="/products" className="py-4 hover:text-[#082f89] transition-colors relative after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-[2.5px] after:bg-[#082f89] after:rounded-full hover:after:w-full after:transition-all after:duration-300" data-testid="products-nav-link">
               Products
@@ -279,8 +340,20 @@ const Header = () => {
           </SheetHeader>
           <div className="flex-1 overflow-y-auto px-5 py-6 space-y-3">
             <Link to="/" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-bold text-[#07152e] hover:text-[#082f89] hover:bg-[#e8eeff] rounded-2xl transition-all">🏠 Home</Link>
+            
+            <div className="py-2 px-4 space-y-2 border-y border-slate-100">
+              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Categories</p>
+              <div className="grid grid-cols-1 gap-1 pl-2">
+                <Link to="/category/cctv-camera" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📷 CCTV Camera</Link>
+                <Link to="/category/gps-trackers" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📍 GPS Tracker</Link>
+                <Link to="/category/accessories" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📦 Accessories</Link>
+                <Link to="/category/access-control" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">🛡️ Access Control</Link>
+                <Link to="/category/intercom" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">☎️ Intercom</Link>
+              </div>
+            </div>
+
             <Link to="/products" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-extrabold text-[#082f89] bg-[#e8eeff] hover:bg-[#d5e2ff] rounded-2xl transition-all flex items-center justify-between">
-              <span>🛍️ Products</span>
+              <span>🛍️ All Products</span>
               <span className="bg-[#01a345] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase">ALL</span>
             </Link>
             <Link to="/about" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-bold text-[#07152e] hover:text-[#082f89] hover:bg-[#e8eeff] rounded-2xl transition-all">About Us</Link>

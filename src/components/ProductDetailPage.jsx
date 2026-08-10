@@ -65,11 +65,11 @@ export const ProductDetailPage = () => {
     setOpen(true);
   };
 
-  const savings = product.oldPrice && product.oldPrice > product.price 
+  const savings = product.price && product.oldPrice && product.oldPrice > product.price 
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
 
-  const savingsAmount = product.oldPrice && product.oldPrice > product.price 
+  const savingsAmount = product.price && product.oldPrice && product.oldPrice > product.price 
     ? product.oldPrice - product.price 
     : 0;
 

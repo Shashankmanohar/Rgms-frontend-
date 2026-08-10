@@ -275,7 +275,7 @@ export const Footer = () => {
             </div>
 
             <p className="text-[#94a3b8] text-[13px] leading-relaxed max-w-sm font-medium">
-              RGMS is redefining connected security across India with AI-powered cameras, 4G solar surveillance, and 4K smart cinema projectors.
+              {footerData.about}
             </p>
 
             <div className="pt-2">
@@ -463,15 +463,15 @@ export const Footer = () => {
         </button>
       </div>
 
-      {/* Floating Back to Top Button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-        data-testid="back-to-top"
+      {/* Floating Direct Call Button */}
+      <a
+        href="tel:+917707019501"
+        aria-label="Call Support"
+        data-testid="direct-call-button"
         className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#082f89] hover:bg-[#01a345] text-white flex items-center justify-center z-40 shadow-[0_10px_30px_rgba(8,47,137,0.5)] border-2 border-white/20 transition-all duration-300 hover:scale-110 active:scale-95 group"
       >
-        <ArrowUp size={20} className="group-hover:-translate-y-0.5 transition-transform" />
-      </button>
+        <Phone size={20} className="group-hover:rotate-12 transition-transform" />
+      </a>
 
       <QuickEnquiryModal isOpen={isEnquiryModalOpen} onClose={() => setIsEnquiryModalOpen(false)} />
     </footer>

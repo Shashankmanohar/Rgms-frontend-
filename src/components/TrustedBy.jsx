@@ -6,71 +6,39 @@ import React from 'react';
  */
 const wm = (text, color, sub) => ({ text, color, sub });
 
-export const brandLogos = [
-  wm('amazon.in', '#FF9900'),
-  wm('Flipkart', '#082f89'),
-  wm('meesho', '#F43397'),
-  wm('Croma', '#01a345'),
-  wm('Reliance Digital', '#082f89'),
-  wm('Vijay Sales', '#f00102'),
-  wm('Snapdeal', '#E40046'),
-  wm('JioMart', '#082f89'),
-  wm('Tata CLiQ', '#f00102'),
-  wm('Paytm Mall', '#00BAF2'),
-  wm('IndiaMART', '#f00102'),
-  wm('Shiprocket', '#5B21B6'),
-  wm('Delhivery', '#f00102'),
-  wm('Ekart', '#082f89'),
-  wm('BlueDart', '#082f89'),
-  wm('DHL', '#FFCC00', '#f00102'),
-  wm('FedEx', '#4D148C', '#FF6600'),
-  wm('UPS', '#5F3813', '#FFB500'),
-  wm('Razorpay', '#082f89'),
-  wm('PhonePe', '#5F259F'),
-  wm('Google Pay', '#4285F4'),
-  wm('Paytm', '#00BAF2'),
-  wm('VISA', '#082f89'),
-  wm('Mastercard', '#EB001B', '#F79E1B'),
-  wm('RuPay', '#082f89', '#f00102'),
-  wm('ISO 9001', '#082f89'),
-  wm('BIS Certified', '#01a345'),
-  wm('Make in India', '#FF9933', '#01a345'),
-  wm('Startup India', '#082f89'),
-  wm('CE', '#111827'),
+export const clientLogos = [
+  { name: 'D.A.V. College', src: '/LOGO.png' },
+  { name: 'DXN', src: '/dxn-logo.png' },
+  { name: 'Kalpavriksha', src: '/logo (1).png' },
+  { name: 'Patliputra Logistics', src: '/logo-3-164x47.png' },
+  { name: 'NBET Total Logistic Solutions', src: '/logo.jpeg' },
+  { name: 'Hotel Rudra Residency', src: '/rr-logo.webp' },
+  { name: 'Trackon', src: '/trackon_logo.png' },
 ];
 
 const LogoTile = ({ logo }) => {
-  const { text, color, sub } = logo;
+  const { name, src } = logo;
   return (
     <div
-      className="shrink-0 h-16 md:h-[84px] min-w-[170px] md:min-w-[240px] flex items-center justify-center px-6 md:px-8 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_10px_30px_rgba(8,47,137,0.06)] hover:shadow-[0_22px_45px_rgba(8,47,137,0.18)] hover:border-[#082f89]/50 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer relative overflow-hidden"
-      aria-label={text}
+      className="shrink-0 h-20 md:h-[96px] w-[180px] md:w-[240px] flex items-center justify-center px-6 md:px-8 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_10px_30px_rgba(8,47,137,0.06)] hover:shadow-[0_22px_45px_rgba(8,47,137,0.18)] hover:border-[#082f89]/50 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+      aria-label={name}
     >
       {/* Subtle hover shine gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#082f89]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
 
-      <span className="flex items-center gap-2 whitespace-nowrap z-10">
-        <span
-          className="font-black tracking-tight text-[18px] md:text-[23px] leading-none group-hover:scale-105 transition-transform duration-300"
-          style={{ color }}
-        >
-          {text}
-        </span>
-        {sub && (
-          <span
-            className="inline-block w-2.5 h-2.5 rounded-full shadow-sm"
-            style={{ backgroundColor: sub }}
-            aria-hidden
-          />
-        )}
-      </span>
+      <img
+        src={src}
+        alt={name}
+        className="max-h-[65%] max-w-full object-contain transition-all duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
     </div>
   );
 };
 
 const TrustedBy = () => {
   // Duplicate list for seamless infinite marquee loop
-  const track = [...brandLogos, ...brandLogos];
+  const track = [...clientLogos, ...clientLogos, ...clientLogos];
 
   return (
     <section className="relative bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#f8fafc] py-12 md:py-24 overflow-hidden border-y border-slate-200/60" aria-labelledby="trusted-heading">

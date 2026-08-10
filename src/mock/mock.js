@@ -13,15 +13,16 @@ export const heroBanners = [
 ];
 
 export const categories = [
-  { id: 1, name: 'GPS Trackers', image: `${A}/asset-9.jpeg` },
-  { id: 2, name: 'Wifi Cameras', image: `${A}/asset-5.jpeg` },
-  { id: 3, name: '4G Cameras', image: `${A}/asset-6.jpeg` },
-  { id: 4, name: 'Solar Cameras', image: `${A}/asset-7.jpeg` },
-  { id: 5, name: 'Projectors', image: `${A}/asset-8.jpeg` },
-  { id: 6, name: 'Dashcams', image: `${A}/asset-9.jpeg` },
-  { id: 7, name: 'Supercams', image: `${A}/asset-10.jpeg` },
-  { id: 8, name: 'Home Studio', image: `${A}/asset-11.jpeg` },
-  { id: 9, name: 'Gaming', image: `${A}/asset-12.jpeg` },
+  { id: 1, name: 'CCTV Camera', image: `${A}/cctv_camera_category.png`, tag: 'HOT', tagColor: 'bg-[#f00102]', slug: 'cctv-camera' },
+  { id: 2, name: 'WiFi Camera', image: `${A}/wifi_camera_card.png`, tag: 'POPULAR', tagColor: 'bg-[#082f89]', slug: 'wifi-cameras' },
+  { id: 3, name: 'Solar Camera', image: `${A}/solar_camera_card.png`, tag: 'WIRELESS', tagColor: 'bg-[#01a345]', slug: 'solar-cameras' },
+  { id: 4, name: 'GPS Tracker', image: `${A}/gps_tracker_category.png`, tag: 'LIVE', tagColor: 'bg-[#01a345]', slug: 'gps-trackers' },
+  { id: 5, name: 'Wired GPS', image: `${A}/wired_gps_card.png`, tag: 'ENG-LOCK', tagColor: 'bg-[#f00102]', slug: 'wired-gps' },
+  { id: 6, name: 'Magnetic GPS', image: `${A}/magnet_gps_card.png`, tag: '90-DAYS', tagColor: 'bg-[#d97706]', slug: 'magnet-gps' },
+  { id: 7, name: 'Accessories', image: `${A}/cctv_accessories_category.png`, tag: 'NEW', tagColor: 'bg-[#7c3aed]', slug: 'accessories' },
+  { id: 8, name: 'Access Control', image: `${A}/access_control_category.png`, tag: 'BIOMETRIC', tagColor: 'bg-[#dc2626]', slug: 'access-control' },
+  { id: 9, name: 'Smart Door Lock', image: `${A}/door_lock_card.png`, tag: 'KEYLESS', tagColor: 'bg-[#7c3aed]', slug: 'door-lock' },
+  { id: 10, name: 'Intercom', image: `${A}/intercom_category.png`, tag: 'PBX', tagColor: 'bg-[#d97706]', slug: 'intercom' },
 ];
 
 export const heroSlides = [
@@ -227,14 +228,13 @@ export const blogs = [
 ];
 
 export const footerData = {
-  about: "RGMS is redefining smart security and home tech across India with AI-powered cameras, 4G solar surveillance, vehicle GPS trackers, and 4K cinema projectors. Certified by BIS & ISO 9001:2025.",
+  about: "RGMS is redefining connected security across India with AI-powered CCTV cameras, real-time GPS trackers, smart access control, and telecom systems.",
   categories: [
-    { label: 'GPS Trackers', slug: 'gps-trackers' },
-    { label: 'WiFi Security Cameras', slug: 'wifi-cameras' },
-    { label: '4G SIM Cameras', slug: '4g-cameras' },
-    { label: 'Solar Powered Cameras', slug: 'solar-cameras' },
-    { label: '4K Smart Projectors', slug: 'projectors' },
-    { label: 'Vehicle Dashcams', slug: 'dashcams' },
+    { label: 'CCTV Camera', slug: 'cctv-camera' },
+    { label: 'GPS Tracker', slug: 'gps-trackers' },
+    { label: 'Accessories', slug: 'accessories' },
+    { label: 'Access Control', slug: 'access-control' },
+    { label: 'Intercom', slug: 'intercom' },
     { label: 'All Products Catalog', slug: 'products' }
   ],
   information: [
@@ -242,7 +242,7 @@ export const footerData = {
     { label: 'All Products', path: '/products' },
     { label: 'About RGMS', path: '/about' },
     { label: 'Contact Us', path: '/contact' },
-    { label: 'Admin Portal', path: '/admin' }
+    { label: 'Admin Portal', path: '/rgmsadmin' }
   ],
   phone: '+91 7707 019 501',
   whatsapp: '917707019501',
@@ -285,5 +285,7 @@ export const megaMenu = [
   },
 ];
 
-export const formatPrice = (n) =>
-  'Rs. ' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const formatPrice = (n) => {
+  if (n === null || n === undefined || n === '' || isNaN(n)) return 'Price on Request';
+  return 'Rs. ' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
