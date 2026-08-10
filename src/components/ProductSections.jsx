@@ -15,7 +15,7 @@ const CarouselRow = ({ products, testId }) => {
   if (!products || products.length === 0) {
     return (
       <div className="bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm text-slate-500 font-bold text-xs sm:text-sm">
-        No products currently listed in this section. Add products from the Admin Panel!
+        No products currently listed in this section.
       </div>
     );
   }

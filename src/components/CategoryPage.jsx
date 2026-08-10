@@ -1049,14 +1049,8 @@ export const CategoryPage = () => {
             </div>
             <h3 className="text-xl font-black text-[#07152e]">No Products Available</h3>
             <p className="text-xs sm:text-sm text-[#64748b] font-medium leading-relaxed">
-              All store products have been cleared. Products added via the <strong>Admin Panel</strong> will immediately appear here for your customers.
+              We currently don't have any products available in this category. Please check back soon!
             </p>
-            <Link
-              to="/rgmsadmin"
-              className="inline-flex items-center gap-2 bg-[#082f89] hover:bg-[#0e45c4] text-white text-xs font-black px-6 py-3 rounded-full shadow-lg transition-all transform active:scale-95"
-            >
-              Go to Admin Panel to Add Products
-            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
