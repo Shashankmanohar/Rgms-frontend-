@@ -7,7 +7,7 @@ import ProductCard from './ProductCard';
 import FAQSection from './FAQSection';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
-import { formatPrice } from '../mock/mock';
+import { formatPrice, convertToSlug } from '../mock/mock';
 import { toast } from 'sonner';
 import { 
   Star, ShieldCheck, Truck, RefreshCcw, Award, CheckCircle2, 
@@ -15,7 +15,8 @@ import {
 } from 'lucide-react';
 
 export const ProductDetailPage = () => {
-  const { id } = useParams();
+  const { id: rawId } = useParams();
+  const id = rawId && rawId.includes('prod-') ? 'prod-' + rawId.split('prod-').pop() : rawId;
   const navigate = useNavigate();
   const { products } = useProducts();
   const { addToCart, setOpen } = useCart();
@@ -83,7 +84,7 @@ export const ProductDetailPage = () => {
       <SEO 
         title={`${product.name} | RGMS Official Store`}
         description={product.description || `Buy ${product.name} at best price in India with 6 Months Free Warranty & Express Delivery.`}
-        canonical={`/product/${product.id}`}
+        canonical={`/product/${convertToSlug(product.name)}-${product.id}`}
       />
       <Header />
 

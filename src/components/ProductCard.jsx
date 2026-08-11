@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star } from 'lucide-react';
-import { formatPrice } from '../mock/mock';
+import { formatPrice, convertToSlug } from '../mock/mock';
 import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
 
   const handleOpenDetail = (e) => {
     e.stopPropagation();
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${convertToSlug(product.name)}-${product.id}`);
   };
 
   return (
@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
             </button>
           )}
           <Link 
-            to={`/product/${product.id}`}
+            to={`/product/${convertToSlug(product.name)}-${product.id}`}
             onClick={(e) => e.stopPropagation()}
             className="flex-1 bg-white border border-[#d4dce7] hover:border-[#082f89] hover:text-[#082f89] text-[#1e2c45] text-[12px] font-bold py-2.5 rounded-full h-10 flex items-center justify-center transition-colors active:scale-95"
             data-testid={`view-more-${product.id}`}

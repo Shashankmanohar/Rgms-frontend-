@@ -289,3 +289,11 @@ export const formatPrice = (n) => {
   if (n === null || n === undefined || n === '' || isNaN(n)) return 'Price on Request';
   return 'Rs. ' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
+
+export const convertToSlug = (text) => {
+  if (!text) return '';
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+};

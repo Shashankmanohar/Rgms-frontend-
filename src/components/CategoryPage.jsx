@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { Footer, WhatsAppIcon } from './BottomSections';
-import { dealsProducts, formatPrice, newArrivals, bestSellers } from '../mock/mock';
+import { dealsProducts, formatPrice, newArrivals, bestSellers, convertToSlug } from '../mock/mock';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
 import SEO from './SEO';
@@ -1057,7 +1057,7 @@ export const CategoryPage = () => {
             {filteredProducts.map((product) => (
             <div
               key={product.id}
-              onClick={() => navigate(`/product/${product.id}`)}
+              onClick={() => navigate(`/product/${convertToSlug(product.name)}-${product.id}`)}
               className="group bg-white rounded-3xl p-5 shadow-[0_4px_20px_rgba(8,47,137,0.06)] hover:shadow-[0_20px_40px_rgba(8,47,137,0.14)] hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 flex flex-col justify-between relative overflow-hidden cursor-pointer"
             >
               {/* Badge */}
