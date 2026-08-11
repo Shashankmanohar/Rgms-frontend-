@@ -9,7 +9,7 @@ export const SEO = ({
   ogType = "website",
   ogImage = "/assets/rgms-logo-transparent.png"
 }) => {
-  const siteUrl = "https://rgms.com";
+  const siteUrl = "https://www.rgmservices.in";
   const currentCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
   return (
