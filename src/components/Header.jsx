@@ -41,6 +41,23 @@ const Header = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleCheckout = () => {
+    if (items.length === 0) return;
+    
+    let message = "Hello RGMS! I would like to place an order/checkout the following items:\n\n";
+    items.forEach((item, index) => {
+      const matchedProduct = contextProducts?.find((p) => p.id === item.id);
+      const priceStr = formatPrice(matchedProduct?.price || item.price);
+      message += `${index + 1}. ${item.name} (Qty: ${item.qty}) - ${priceStr}\n`;
+    });
+    
+    message += `\nTotal Amount: ${formatPrice(total)}`;
+    
+    const whatsappUrl = `https://wa.me/917707019501?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setOpen(false);
+  };
+
   // All products for instant spotlight search
   const allProducts = useMemo(() => {
     if (contextProducts && contextProducts.length > 0) {
@@ -398,32 +415,39 @@ const Header = () => {
           ) : (
             <>
               <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
-                {items.map((item) => (
-                  <div key={item.id} className="flex gap-3 items-center border border-slate-100 rounded-2xl p-3 shadow-sm bg-white">
-                    <div className="w-16 h-16 bg-[#f1f5f9] rounded-xl flex items-center justify-center overflow-hidden shrink-0">
-                      <img src={item.image} alt="" className="w-full h-full object-contain" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[12.5px] font-bold text-[#07152e] truncate">{item.name}</p>
-                      <p className="text-[13px] font-black text-[#082f89] mt-0.5">{formatPrice(item.price)}</p>
-                      <div className="flex items-center gap-2 mt-1.5">
-                        <button onClick={() => updateQty(item.id, item.qty - 1)} aria-label="Decrease quantity" className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-[#07152e] hover:border-[#082f89] hover:text-[#082f89] transition-colors"><Minus size={12} /></button>
-                        <span className="text-[13px] font-bold w-5 text-center tabular-nums">{item.qty}</span>
-                        <button onClick={() => updateQty(item.id, item.qty + 1)} aria-label="Increase quantity" className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-[#07152e] hover:border-[#082f89] hover:text-[#082f89] transition-colors"><Plus size={12} /></button>
+                {items.map((item) => {
+                  const matchedProduct = contextProducts?.find((p) => p.id === item.id);
+                  const displayImage = matchedProduct?.image || item.image;
+                  return (
+                    <div key={item.id} className="flex gap-3 items-center border border-slate-100 rounded-2xl p-3 shadow-sm bg-white">
+                      <div className="w-16 h-16 bg-[#f1f5f9] rounded-xl flex items-center justify-center overflow-hidden shrink-0">
+                        <img src={displayImage} alt="" className="w-full h-full object-contain" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[12.5px] font-bold text-[#07152e] truncate">{item.name}</p>
+                        <p className="text-[13px] font-black text-[#082f89] mt-0.5">{formatPrice(item.price)}</p>
+                        <div className="flex items-center gap-2 mt-1.5">
+                          <button onClick={() => updateQty(item.id, item.qty - 1)} aria-label="Decrease quantity" className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-[#07152e] hover:border-[#082f89] hover:text-[#082f89] transition-colors"><Minus size={12} /></button>
+                          <span className="text-[13px] font-bold w-5 text-center tabular-nums">{item.qty}</span>
+                          <button onClick={() => updateQty(item.id, item.qty + 1)} aria-label="Increase quantity" className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-[#07152e] hover:border-[#082f89] hover:text-[#082f89] transition-colors"><Plus size={12} /></button>
+                        </div>
+                      </div>
+                      <button onClick={() => removeFromCart(item.id)} className="text-[#9aa7ba] hover:text-[#f00102] transition-colors shrink-0 p-2" aria-label="Remove">
+                        <Trash2 size={18} />
+                      </button>
                     </div>
-                    <button onClick={() => removeFromCart(item.id)} className="text-[#9aa7ba] hover:text-[#f00102] transition-colors shrink-0 p-2" aria-label="Remove">
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="border-t px-5 py-5 space-y-3 bg-[#f8fafc]">
                 <div className="flex justify-between text-[15px] font-black text-[#07152e]">
                   <span>TOTAL AMOUNT:</span>
                   <span className="tabular-nums text-[#082f89]">{formatPrice(total)}</span>
                 </div>
-                <button className="w-full btn-primary text-[13px] font-extrabold py-3.5 rounded-full shadow-lg">
+                <button 
+                  onClick={handleCheckout} 
+                  className="w-full btn-primary text-[13px] font-extrabold py-3.5 rounded-full shadow-lg"
+                >
                   PROCEED TO CHECKOUT
                 </button>
                 <button onClick={() => setOpen(false)} className="w-full bg-white border border-slate-200 hover:border-[#082f89] hover:text-[#082f89] text-[#07152e] text-[13px] font-bold py-3 rounded-full transition-colors">

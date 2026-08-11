@@ -35,16 +35,13 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     const rawImage = product.image || product.thumb || '/assets/asset-1.png';
-    const cleanImage = typeof rawImage === 'string' && rawImage.length > 500 && rawImage.startsWith('data:')
-      ? '/assets/asset-1.png'
-      : rawImage;
 
     setItems((prev) => {
       const found = prev.find((i) => i.id === product.id);
       if (found) {
         return prev.map((i) => (i.id === product.id ? { ...i, qty: i.qty + 1 } : i));
       }
-      return [...prev, { id: product.id, name: product.name, price: product.price, image: cleanImage, qty: 1 }];
+      return [...prev, { id: product.id, name: product.name, price: product.price, image: rawImage, qty: 1 }];
     });
     setOpen(true);
     toast.success('Added to cart successfully!', {
@@ -60,7 +57,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const count = items.reduce((s, i) => s + (i.qty || 1), 0);
-  const total = items.reduce((s, i) => s + (i.qty || 1) * (i.price || 0), 0);
+  const hasPriceOnRequest = items.some((i) => i.price === null || i.price === undefined || i.price === '' || isNaN(i.price));
+  const total = hasPriceOnRequest ? null : items.reduce((s, i) => s + (i.qty || 1) * (i.price || 0), 0);
 
   return (
     <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQty, count, total, open, setOpen }}>
