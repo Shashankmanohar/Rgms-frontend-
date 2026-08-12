@@ -60,7 +60,7 @@ const HeroBanner = () => {
             </h2>
           </div>
           <span className="hidden sm:inline-block text-xs font-bold text-[#64748b]">
-            Scroll to view all 5 categories →
+            Scroll to view all 7 categories →
           </span>
         </div>
 

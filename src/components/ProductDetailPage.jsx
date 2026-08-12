@@ -10,7 +10,7 @@ import { useProducts } from '../context/ProductContext';
 import { formatPrice, convertToSlug } from '../mock/mock';
 import { toast } from 'sonner';
 import { 
-  Star, ShieldCheck, Truck, RefreshCcw, Award, CheckCircle2, 
+  Star, CheckCircle2, 
   ShoppingBag, Plus, Minus, ArrowRight, ChevronRight, Phone, MessageSquare, ArrowLeft, Share2, Heart, HelpCircle, ChevronDown
 } from 'lucide-react';
 
@@ -134,24 +134,7 @@ export const ProductDetailPage = () => {
               />
             </div>
 
-            {/* Quick Trust Pillars */}
-            <div className="grid grid-cols-3 gap-2.5 pt-2">
-              <div className="bg-[#f8fafc] border border-slate-200 rounded-2xl p-3 text-center">
-                <ShieldCheck size={20} className="text-[#01a345] mx-auto mb-1" />
-                <p className="text-[11px] font-extrabold text-[#07152e]">6 Mo Warranty</p>
-                <p className="text-[9.5px] text-slate-500 font-medium">Free Coverage</p>
-              </div>
-              <div className="bg-[#f8fafc] border border-slate-200 rounded-2xl p-3 text-center">
-                <Truck size={20} className="text-[#082f89] mx-auto mb-1" />
-                <p className="text-[11px] font-extrabold text-[#07152e]">Free Delivery</p>
-                <p className="text-[9.5px] text-slate-500 font-medium">Pan-India Delivery</p>
-              </div>
-              <div className="bg-[#f8fafc] border border-slate-200 rounded-2xl p-3 text-center">
-                <RefreshCcw size={20} className="text-[#f00102] mx-auto mb-1" />
-                <p className="text-[11px] font-extrabold text-[#07152e]">7 Days Exchange</p>
-                <p className="text-[9.5px] text-slate-500 font-medium">Easy Replacement</p>
-              </div>
-            </div>
+
           </div>
 
           {/* Right Column: Details, Price & Actions (7 cols) */}

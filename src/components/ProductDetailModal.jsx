@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Star, ShieldCheck, Truck, RefreshCcw, Award, CheckCircle2, ShoppingBag, Plus, Minus, ArrowRight } from 'lucide-react';
+import { X, Star, CheckCircle2, ShoppingBag, Plus, Minus, ArrowRight } from 'lucide-react';
 import { formatPrice } from '../mock/mock';
 import { useCart } from '../context/CartContext';
 import { WhatsAppIcon } from './BottomSections';
@@ -73,21 +73,7 @@ const ProductDetailModal = ({ product, onClose }) => {
               />
             </div>
 
-            {/* Quick Guarantees Bar */}
-            <div className="grid grid-cols-3 gap-2 text-center text-[10.5px] sm:text-xs font-bold text-[#07152e]">
-              <div className="bg-[#f8fafc] rounded-xl p-2.5 border border-slate-200/60 flex flex-col items-center gap-1">
-                <ShieldCheck size={18} className="text-[#01a345]" />
-                <span>6 Mo Warranty</span>
-              </div>
-              <div className="bg-[#f8fafc] rounded-xl p-2.5 border border-slate-200/60 flex flex-col items-center gap-1">
-                <Truck size={18} className="text-[#082f89]" />
-                <span>Free Delivery</span>
-              </div>
-              <div className="bg-[#f8fafc] rounded-xl p-2.5 border border-slate-200/60 flex flex-col items-center gap-1">
-                <RefreshCcw size={18} className="text-[#01a345]" />
-                <span>7 Days Exchange</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Right Column: Details & Actions */}

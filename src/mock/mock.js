@@ -17,11 +17,8 @@ export const categories = [
   { id: 2, name: 'WiFi Camera', image: `${A}/wifi_camera_card.png`, tag: 'POPULAR', tagColor: 'bg-[#082f89]', slug: 'wifi-cameras' },
   { id: 3, name: 'Solar Camera', image: `${A}/solar_camera_card.png`, tag: 'WIRELESS', tagColor: 'bg-[#01a345]', slug: 'solar-cameras' },
   { id: 4, name: 'GPS Tracker', image: `${A}/gps_tracker_category.png`, tag: 'LIVE', tagColor: 'bg-[#01a345]', slug: 'gps-trackers' },
-  { id: 5, name: 'Wired GPS', image: `${A}/wired_gps_card.png`, tag: 'ENG-LOCK', tagColor: 'bg-[#f00102]', slug: 'wired-gps' },
-  { id: 6, name: 'Magnetic GPS', image: `${A}/magnet_gps_card.png`, tag: '90-DAYS', tagColor: 'bg-[#d97706]', slug: 'magnet-gps' },
-  { id: 7, name: 'Accessories', image: `${A}/cctv_accessories_category.png`, tag: 'NEW', tagColor: 'bg-[#7c3aed]', slug: 'accessories' },
+  { id: 7, name: 'All Accessories', image: `${A}/cctv_accessories_category.png`, tag: 'NEW', tagColor: 'bg-[#7c3aed]', slug: 'accessories' },
   { id: 8, name: 'Access Control', image: `${A}/access_control_category.png`, tag: 'BIOMETRIC', tagColor: 'bg-[#dc2626]', slug: 'access-control' },
-  { id: 9, name: 'Smart Door Lock', image: `${A}/door_lock_card.png`, tag: 'KEYLESS', tagColor: 'bg-[#7c3aed]', slug: 'door-lock' },
   { id: 10, name: 'Intercom', image: `${A}/intercom_category.png`, tag: 'PBX', tagColor: 'bg-[#d97706]', slug: 'intercom' },
 ];
 
@@ -232,7 +229,7 @@ export const footerData = {
   categories: [
     { label: 'CCTV Camera', slug: 'cctv-camera' },
     { label: 'GPS Tracker', slug: 'gps-trackers' },
-    { label: 'Accessories', slug: 'accessories' },
+    { label: 'All Accessories', slug: 'accessories' },
     { label: 'Access Control', slug: 'access-control' },
     { label: 'Intercom', slug: 'intercom' },
     { label: 'All Products Catalog', slug: 'products' }

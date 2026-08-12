@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, ShieldCheck, RefreshCcw, BadgeCheck } from 'lucide-react';
-import { dealsProducts as fallbackDealsProducts, trustItems } from '../mock/mock';
+import { dealsProducts as fallbackDealsProducts } from '../mock/mock';
 import ProductCard from './ProductCard';
 import useCarousel from '../hooks/useCarousel';
 import { NavArrow, Dots } from './CarouselControls';
@@ -48,42 +47,7 @@ const Countdown = () => {
   );
 };
 
-const iconMap = { truck: Truck, shield: ShieldCheck, refresh: RefreshCcw, badge: BadgeCheck };
 
-export const TrustBar = () => (
-  <div className="bg-[#f8fafc] py-8 border-y border-slate-200/80" data-testid="trust-bar">
-    <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {trustItems.map((item, idx) => {
-          const Icon = iconMap[item.icon];
-          const isGreen = idx % 2 !== 0;
-          return (
-            <div 
-              key={item.title} 
-              className="bg-white rounded-2xl p-4 sm:p-5 shadow-[0_4px_20px_rgba(8,47,137,0.05)] border border-slate-100 flex items-center gap-4 hover:shadow-[0_12px_32px_rgba(8,47,137,0.12)] hover:-translate-y-1 transition-all duration-300 group cursor-default"
-            >
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300 ${
-                isGreen 
-                  ? 'bg-[#01a345]/12 text-[#01a345] group-hover:bg-[#01a345] group-hover:text-white shadow-xs' 
-                  : 'bg-[#082f89]/10 text-[#082f89] group-hover:bg-[#082f89] group-hover:text-white shadow-xs'
-              }`}>
-                <Icon size={24} strokeWidth={2.2} />
-              </div>
-              <div>
-                <p className="text-sm font-black text-[#07152e] group-hover:text-[#082f89] transition-colors leading-tight">
-                  {item.title}
-                </p>
-                <p className="text-xs text-[#64748b] font-medium leading-snug mt-1">
-                  {item.subtitle}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </div>
-);
 
 const DealsSection = () => {
   const { dealsProductsList } = useProducts();

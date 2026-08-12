@@ -6,13 +6,14 @@ import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner';
 import HeroProduct from './components/HeroProduct';
-import DealsSection, { TrustBar } from './components/DealsSection';
-import VideoTestimonials from './components/VideoTestimonials';
+import DealsSection from './components/DealsSection';
 import { NewArrivals, BrandSection, BestSellers, UsageTypes } from './components/ProductSections';
 import { CustomerLove, NewsletterCards, Footer } from './components/BottomSections';
 import TrustedBy from './components/TrustedBy';
 import WhyChooseUs from './components/WhyChooseUs';
 import FAQSection from './components/FAQSection';
+import VideoShowcase from './components/VideoShowcase';
+import StatMarquee from './components/StatMarquee';
 
 import CategoryPage from './components/CategoryPage';
 import AboutPage from './components/AboutPage';
@@ -32,13 +33,14 @@ const Home = () => (
     <Header />
     <main>
       <HeroBanner />
+      <StatMarquee />
       <HeroProduct />
       <DealsSection />
       <NewArrivals />
       <BestSellers />
-      <TrustBar />
+
       <WhyChooseUs />
-      <VideoTestimonials />
+      <VideoShowcase />
       <TrustedBy />
       <BrandSection />
       <UsageTypes />

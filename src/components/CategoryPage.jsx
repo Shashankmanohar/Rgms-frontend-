@@ -29,7 +29,7 @@ const CATEGORY_CONFIGS = {
       { id: 'all', label: 'All Products' },
       { id: 'cctv', label: 'CCTV Camera' },
       { id: 'gps', label: 'GPS Tracker' },
-      { id: 'accessories', label: 'Accessories' },
+      { id: 'accessories', label: 'All Accessories' },
       { id: 'access-control', label: 'Access Control' },
       { id: 'intercom', label: 'Intercom' },
     ],
@@ -669,7 +669,7 @@ const CATEGORY_CONFIGS = {
   },
 
   'accessories': {
-    name: 'Accessories',
+    name: 'All Accessories',
     badge: 'Official RGMS CCTV Accessories',
     title: 'CCTV Accessories & Installation Hardware',
     description: 'Everything you need for a complete CCTV installation — racks, SMPS, PoE switches, ethernet switches, junction boxes, cables, mounts, and more.',

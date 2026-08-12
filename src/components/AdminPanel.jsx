@@ -450,7 +450,7 @@ export const AdminPanel = () => {
                       <option value="gps-trackers">GPS Tracker</option>
                       <option value="wired-gps">Wired GPS</option>
                       <option value="magnet-gps">Magnetic GPS</option>
-                      <option value="accessories">Accessories</option>
+                      <option value="accessories">All Accessories</option>
                       <option value="access-control">Access Control System</option>
                       <option value="door-lock">Smart Door Lock</option>
                       <option value="intercom">Intercom</option>

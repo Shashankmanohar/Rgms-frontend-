@@ -79,47 +79,6 @@ const Header = () => {
 
   return (
     <>
-      {/* Announcement Bar Ticker */}
-      <div className="bg-gradient-to-r from-[#041b54] via-[#082f89] to-[#041b54] text-white overflow-hidden py-1.5 sm:py-2.5 border-b border-white/10 relative z-50 select-none group shadow-sm" data-testid="announcement-bar">
-        <div className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_4%,black_96%,transparent_100%)]">
-          <div className="flex shrink-0 items-center gap-8 sm:gap-12 min-w-full animate-[marqueeScroll_28s_linear_infinite] group-hover:[animation-play-state:paused]">
-            <span className="flex items-center gap-6 sm:gap-8 text-[10.5px] sm:text-[12px] md:text-[12.5px] font-extrabold tracking-normal sm:tracking-wider uppercase whitespace-nowrap">
-              <span className="flex items-center gap-1.5">
-                <span className="animate-bounce">🎉</span> NEW YEAR SALE IS LIVE! CODE{' '}
-                <span className="bg-[#f00102] text-white px-2 py-0.5 rounded-full font-black text-[10px] sm:text-[11px] shadow-[0_3px_10px_rgba(240,1,2,0.4)] animate-pulse">
-                  NEWYEAR25
-                </span>{' '}
-                (25% OFF)
-              </span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🚚</span> FREE SHIPPING ACROSS INDIA ABOVE ₹999</span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🛡️</span> 6 MONTHS WARRANTY + 7-DAY REPLACEMENT</span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🤖</span> AI SMART SECURITY BRAND</span>
-              <span className="text-[#01a345] font-black">•</span>
-            </span>
-          </div>
-          <div className="flex shrink-0 items-center gap-8 sm:gap-12 min-w-full animate-[marqueeScroll_28s_linear_infinite] group-hover:[animation-play-state:paused]" aria-hidden="true">
-            <span className="flex items-center gap-6 sm:gap-8 text-[10.5px] sm:text-[12px] md:text-[12.5px] font-extrabold tracking-normal sm:tracking-wider uppercase whitespace-nowrap">
-              <span className="flex items-center gap-1.5">
-                <span className="animate-bounce">🎉</span> NEW YEAR SALE IS LIVE! CODE{' '}
-                <span className="bg-[#f00102] text-white px-2 py-0.5 rounded-full font-black text-[10px] sm:text-[11px] shadow-[0_3px_10px_rgba(240,1,2,0.4)] animate-pulse">
-                  NEWYEAR25
-                </span>{' '}
-                (25% OFF)
-              </span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🚚</span> FREE SHIPPING ACROSS INDIA ABOVE ₹999</span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🛡️</span> 6 MONTHS WARRANTY + 7-DAY REPLACEMENT</span>
-              <span className="text-[#01a345] font-black">•</span>
-              <span className="flex items-center gap-1.5"><span>🤖</span> AI SMART SECURITY BRAND</span>
-              <span className="text-[#01a345] font-black">•</span>
-            </span>
-          </div>
-        </div>
-      </div>
 
       {/* Main Billion-Dollar Glassmorphic Animated Navbar */}
       <header
@@ -153,7 +112,7 @@ const Header = () => {
             {/* Hoverable Categories Dropdown */}
             <div className="relative group py-4">
               <button className="flex items-center gap-1 hover:text-[#082f89] transition-colors focus:outline-none py-1">
-                <span>Categories</span>
+                <span>Shop Now</span>
                 <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300 text-[#082f89]" />
               </button>
               
@@ -184,7 +143,7 @@ const Header = () => {
                     <Package size={16} />
                   </div>
                   <div>
-                    <p className="text-[12.5px] font-extrabold text-[#07152e]">Accessories</p>
+                    <p className="text-[12.5px] font-extrabold text-[#07152e]">All Accessories</p>
                     <p className="text-[10px] text-[#64748b] font-semibold">SMPS, PoE switches, racks & cables</p>
                   </div>
                 </Link>
@@ -369,11 +328,11 @@ const Header = () => {
             <Link to="/" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-bold text-[#07152e] hover:text-[#082f89] hover:bg-[#e8eeff] rounded-2xl transition-all">🏠 Home</Link>
             
             <div className="py-2 px-4 space-y-2 border-y border-slate-100">
-              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Categories</p>
+              <p className="text-[11px] font-black text-[#64748b] uppercase tracking-wider">Shop Now</p>
               <div className="grid grid-cols-1 gap-1 pl-2">
                 <Link to="/category/cctv-camera" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📷 CCTV Camera</Link>
                 <Link to="/category/gps-trackers" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📍 GPS Tracker</Link>
-                <Link to="/category/accessories" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📦 Accessories</Link>
+                <Link to="/category/accessories" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">📦 All Accessories</Link>
                 <Link to="/category/access-control" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">🛡️ Access Control</Link>
                 <Link to="/category/intercom" onClick={() => setMobileOpen(false)} className="block py-2 text-[13.5px] font-bold text-[#07152e] hover:text-[#082f89] transition-colors">☎️ Intercom</Link>
               </div>
