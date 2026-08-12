@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Star, Mail, Facebook, Instagram, Youtube, Phone, MapPin, ArrowUp, Truck, ShieldCheck, RefreshCcw, Headphones, Lock, Award, ArrowUpRight, CheckCircle2, MessageSquare } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Mail, Facebook, Instagram, Youtube, Phone, MapPin, ArrowUp, Lock, Award, ArrowUpRight, CheckCircle2, MessageSquare } from 'lucide-react';
 import { reviews, blogs, footerData } from '../mock/mock';
 import { toast } from 'sonner';
 import { QuickEnquiryModal, InlineEnquiryForm } from './QuickEnquiryModal';
@@ -217,48 +217,6 @@ export const Footer = () => {
 
         <div className="max-w-[1280px] mx-auto px-4 lg:px-8 relative z-10">
 
-        {/* Top Guarantee Cards Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pb-12 mb-12 border-b border-white/10">
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10 flex items-center gap-3.5 group hover:border-[#01a345]/50 transition-colors">
-            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#082f89] text-[#01a345] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-              <Truck size={20} />
-            </span>
-            <div>
-              <p className="text-[12.5px] sm:text-[13.5px] font-extrabold text-white leading-tight">Free Express Shipping</p>
-              <p className="text-[10.5px] sm:text-[11.5px] text-[#94a3b8] mt-0.5">Across India on ₹999+</p>
-            </div>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10 flex items-center gap-3.5 group hover:border-[#01a345]/50 transition-colors">
-            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#082f89] text-[#01a345] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-              <ShieldCheck size={20} />
-            </span>
-            <div>
-              <p className="text-[12.5px] sm:text-[13.5px] font-extrabold text-white leading-tight">6 Months Free Warranty</p>
-              <p className="text-[10.5px] sm:text-[11.5px] text-[#94a3b8] mt-0.5">Official Brand Protection</p>
-            </div>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10 flex items-center gap-3.5 group hover:border-[#01a345]/50 transition-colors">
-            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#082f89] text-[#01a345] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-              <RefreshCcw size={20} />
-            </span>
-            <div>
-              <p className="text-[12.5px] sm:text-[13.5px] font-extrabold text-white leading-tight">7-Day Replacement</p>
-              <p className="text-[10.5px] sm:text-[11.5px] text-[#94a3b8] mt-0.5">Hassle-Free Exchange</p>
-            </div>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10 flex items-center gap-3.5 group hover:border-[#01a345]/50 transition-colors">
-            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#082f89] text-[#01a345] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-              <Headphones size={20} />
-            </span>
-            <div>
-              <p className="text-[12.5px] sm:text-[13.5px] font-extrabold text-white leading-tight">24/7 Expert Support</p>
-              <p className="text-[10.5px] sm:text-[11.5px] text-[#94a3b8] mt-0.5">Dedicated Tech Desk</p>
-            </div>
-          </div>
-        </div>
 
         {/* Main Footer Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
