@@ -242,6 +242,7 @@ export const footerData = {
     { label: 'All Products', path: '/products' },
     { label: 'About RGMS', path: '/about' },
     { label: 'Contact Us', path: '/contact' },
+    { label: 'GPS Login Portal', path: 'http://rgms.millitrack.com/modern/#/login' },
     { label: 'Admin Portal', path: '/rgmsadmin' }
   ],
   phone: '+91 7707 019 501',

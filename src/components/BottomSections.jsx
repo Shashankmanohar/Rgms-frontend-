@@ -330,17 +330,32 @@ export const Footer = () => {
               <p className="text-white text-[13px] font-black uppercase tracking-[0.14em]">Customer Care</p>
             </div>
             <ul className="space-y-2.5">
-              {footerData.information.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    to={item.path}
-                    className="text-[#cbd5e1] hover:text-white text-[13px] font-medium transition-colors flex items-center gap-1.5 group"
-                  >
-                    <ChevronRight size={13} className="text-[#082f89] group-hover:text-white group-hover:translate-x-1 transition-transform" />
-                    <span>{item.label}</span>
-                  </Link>
-                </li>
-              ))}
+              {footerData.information.map((item) => {
+                const isExternal = item.path.startsWith('http');
+                return (
+                  <li key={item.label}>
+                    {isExternal ? (
+                      <a
+                        href={item.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#cbd5e1] hover:text-[#01a345] text-[13px] font-medium transition-colors flex items-center gap-1.5 group"
+                      >
+                        <ChevronRight size={13} className="text-[#082f89] group-hover:text-[#01a345] group-hover:translate-x-1 transition-transform" />
+                        <span>{item.label}</span>
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        className="text-[#cbd5e1] hover:text-white text-[13px] font-medium transition-colors flex items-center gap-1.5 group"
+                      >
+                        <ChevronRight size={13} className="text-[#082f89] group-hover:text-white group-hover:translate-x-1 transition-transform" />
+                        <span>{item.label}</span>
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

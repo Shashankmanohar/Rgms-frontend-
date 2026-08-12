@@ -318,6 +318,16 @@ const Header = () => {
 
           {/* Right Action Area: Cart Trigger + Mobile Menu Toggle */}
           <div className="order-3 flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <a
+              href="http://rgms.millitrack.com/modern/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 bg-[#01a345] hover:bg-[#018e3c] text-white text-[12px] sm:text-[13px] font-extrabold px-3.5 py-2 rounded-xl shadow-md transition-all active:scale-95 duration-200"
+            >
+              <User size={14} className="shrink-0" />
+              <span>GPS Login</span>
+            </a>
+
             <button
               onClick={() => setOpen(true)}
               className="relative bg-[#082f89] hover:bg-[#0e45c4] text-white p-2 sm:p-2.5 rounded-xl shadow-sm transition-all active:scale-95 flex items-center justify-center"
@@ -373,6 +383,17 @@ const Header = () => {
               <span>🛍️ All Products</span>
               <span className="bg-[#01a345] text-white text-[9.5px] font-black px-2 py-0.5 rounded uppercase">ALL</span>
             </Link>
+
+            <a
+              href="http://rgms.millitrack.com/modern/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className="block py-3 px-4 text-[15px] font-extrabold text-white bg-[#01a345] hover:bg-[#018e3c] rounded-2xl transition-all flex items-center justify-between shadow-md"
+            >
+              <span className="flex items-center gap-2">🔑 GPS Login Portal</span>
+              <span className="bg-white text-[#01a345] text-[9.5px] font-black px-2 py-0.5 rounded uppercase tracking-wider">LOGIN</span>
+            </a>
             <Link to="/about" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-bold text-[#07152e] hover:text-[#082f89] hover:bg-[#e8eeff] rounded-2xl transition-all">About Us</Link>
             <Link to="/contact" onClick={() => setMobileOpen(false)} className="block py-3 px-4 text-[15px] font-bold text-[#07152e] hover:text-[#082f89] hover:bg-[#e8eeff] rounded-2xl transition-all">Contact Us</Link>
             <a
