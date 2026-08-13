@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 export const SEO = ({ 
   title = "RGMS Smarthome & Security | Smart AI CCTV Cameras & GPS Trackers", 
-  description = "Shop RGMS smart security cameras, 4G solar surveillance, vehicle GPS trackers with remote engine lock, and 4K smart projectors. Free shipping across India & 6 months warranty.", 
+  description = "Shop RGMS smart security cameras, 4G solar surveillance, vehicle GPS trackers with remote engine lock, and 4K smart projectors. Express shipping and dedicated support across India.", 
   keywords = "RGMS, smart security cameras, GPS tracker bike car, 4G solar camera, engine lock GPS, home security India, CCTV camera 360",
   canonical = "",
   ogType = "website",

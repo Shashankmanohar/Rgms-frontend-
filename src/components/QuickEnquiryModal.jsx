@@ -199,7 +199,7 @@ export const InlineEnquiryForm = () => {
           <div className="flex items-center gap-6 pt-2 text-xs font-bold text-[#e2e8f0]">
             <div className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-[#01a345]" />
-              <span>Official 6-Month Warranty</span>
+              <span>Dedicated Tech Support</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-[#01a345]" />

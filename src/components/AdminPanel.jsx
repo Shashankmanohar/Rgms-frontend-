@@ -57,7 +57,7 @@ export const AdminPanel = () => {
     stock: 20,
     image: '',
     description: '',
-    featuresText: 'Official RGMS 6 Month Warranty\nFree Express Shipping Across India'
+    featuresText: 'Free Express Shipping Across India'
   });
 
   // Fetch Contact Messages
@@ -158,7 +158,7 @@ export const AdminPanel = () => {
       stock: 20,
       image: '',
       description: '',
-      featuresText: 'Official RGMS 6 Month Warranty\nFree Express Shipping Across India',
+      featuresText: 'Free Express Shipping Across India',
       isDeal: false,
       isNewArrival: true,
       isBestSeller: false,
@@ -223,10 +223,10 @@ export const AdminPanel = () => {
       badge: formData.badge,
       stock: Number(formData.stock) || 0,
       image: formData.image || '/assets/asset-1.png',
-      description: formData.description || 'Official RGMS Smart Security Device with 6 Months Warranty.',
+      description: formData.description || 'Official RGMS Smart Security Device.',
       features: formData.featuresText
         ? formData.featuresText.split('\n').filter((f) => f.trim().length > 0)
-        : ['Official RGMS Warranty', 'Free Shipping Across India'],
+        : ['Dedicated Tech Support'],
       isDeal: Boolean(formData.isDeal),
       isNewArrival: Boolean(formData.isNewArrival),
       isBestSeller: Boolean(formData.isBestSeller),
@@ -593,7 +593,7 @@ export const AdminPanel = () => {
                     rows={3}
                     value={formData.featuresText}
                     onChange={(e) => setFormData({ ...formData, featuresText: e.target.value })}
-                    placeholder="Official RGMS 6 Month Warranty&#10;Remote Engine Cutoff&#10;Live Voice Listening"
+                    placeholder="Remote Engine Cutoff&#10;Live Voice Listening"
                     className="w-full p-3 bg-[#f8fafc] border border-slate-200 rounded-xl text-xs font-bold focus:outline-none font-mono"
                   />
                 </div>

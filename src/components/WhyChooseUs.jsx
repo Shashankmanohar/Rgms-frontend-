@@ -46,10 +46,10 @@ export const whyChooseFeatures = [
   },
   {
     icon: Award,
-    title: '6 Months Replacement Warranty',
+    title: 'Dedicated Customer Care',
     subtitle: 'Pan-India Service',
-    description: 'Enjoy complete peace of mind with 6 months replacement warranty and dedicated customer service active across 500+ cities in India.',
-    badge: '6 Mo Warranty',
+    description: 'Enjoy complete peace of mind with dedicated customer service and technical support active across 500+ cities in India.',
+    badge: '24/7 support',
     color: 'from-[#01a345] to-[#007a33]',
   },
   {

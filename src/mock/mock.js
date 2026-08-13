@@ -61,7 +61,7 @@ export const trustItems = [
   { icon: 'truck', title: 'Shipping', subtitle: 'Across India' },
   { icon: 'shield', title: 'Secure', subtitle: 'Payments' },
   { icon: 'refresh', title: '7 day', subtitle: 'replacement' },
-  { icon: 'badge', title: '6 Month', subtitle: 'Free Warranty' },
+  { icon: 'badge', title: 'Dedicated', subtitle: 'Tech Support' },
 ];
 
 export const videoProducts = [
@@ -126,8 +126,8 @@ export const protectingFeatures = [
     link: 'Learn more \u2192', side: 'right',
   },
   {
-    icon: 'shieldcheck', title: 'Comprehensive Warranty',
-    desc: 'Includes 6 months free coverage, easily extendable up to 2 years for total peace of mind.',
+    icon: 'shieldcheck', title: 'Dedicated Customer Support',
+    desc: 'Includes 24/7 technical assistance and setup guidance for total peace of mind.',
     link: 'Learn more \u2192', side: 'right',
   },
   {

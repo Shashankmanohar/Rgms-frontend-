@@ -21,9 +21,8 @@ const CATEGORY_CONFIGS = {
     whatsappTopic: 'All Products Catalog',
     iconBadges: [
       { label: 'Genuine RGMS Products', icon: ShieldCheck, color: 'text-[#01a345]' },
-      { label: '6 Months Free Warranty', icon: Zap, color: 'text-[#082f89]' },
-      { label: 'Free Express Shipping India', icon: Radio, color: 'text-[#FF9933]' },
-      { label: '7-Day Replacement', icon: Lock, color: 'text-[#f00102]' },
+      { label: '24/7 Tech Support', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Secure Payments', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Products' },
@@ -36,8 +35,8 @@ const CATEGORY_CONFIGS = {
     matchProduct: () => true,
     faqs: [
       {
-        q: 'Do all RGMS products come with warranty and tech support?',
-        a: 'Yes! Every RGMS product includes an official 6 Months Free Warranty, 7-day replacement guarantee, and dedicated customer tech support.',
+        q: 'Do all RGMS products come with dedicated tech support?',
+        a: 'Yes! Every RGMS product includes dedicated customer support and 24/7 assistance to help you with installation and usage.',
       },
       {
         q: 'How fast is delivery across India?',
@@ -46,12 +45,12 @@ const CATEGORY_CONFIGS = {
     ],
     tableTitle: 'RGMS Complete Product Range Overview',
     tableSubtitle: 'Compare features across our AI security, vehicle GPS, and home entertainment lineup.',
-    tableHeaders: ['Category', 'Top Feature', 'Connectivity', 'Warranty', 'Price Range'],
+    tableHeaders: ['Category', 'Top Feature', 'Connectivity', 'Support', 'Price Range'],
     tableRows: [
-      ['GPS Trackers', 'Remote Engine Lock & Voice', '2G / 4G SIM', '6 Months Warranty', '₹1,499 – ₹3,999'],
-      ['WiFi Cameras', '360° PTZ & Human Detection', '2.4GHz WiFi', '6 Months Warranty', '₹1,199 – ₹3,499'],
-      ['4G & Solar Cameras', 'Zero WiFi / Solar Panel Power', '4G SIM Card', '6 Months Warranty', '₹4,499 – ₹7,899'],
-      ['Smart Projectors', '1080P/4K Android Cinema', 'WiFi & Bluetooth', '6 Months Warranty', '₹7,819 – ₹24,999'],
+      ['GPS Trackers', 'Remote Engine Lock & Voice', '2G / 4G SIM', 'Lifetime Support', '₹1,499 – ₹3,999'],
+      ['WiFi Cameras', '360° PTZ & Human Detection', '2.4GHz WiFi', 'Lifetime Support', '₹1,199 – ₹3,499'],
+      ['4G & Solar Cameras', 'Zero WiFi / Solar Panel Power', '4G SIM Card', 'Lifetime Support', '₹4,499 – ₹7,899'],
+      ['Smart Projectors', '1080P/4K Android Cinema', 'WiFi & Bluetooth', 'Lifetime Support', '₹7,819 – ₹24,999'],
     ]
   },
 
@@ -345,10 +344,10 @@ const CATEGORY_CONFIGS = {
     ],
     tableTitle: 'Studio Accessories Overview',
     tableSubtitle: 'Quality audio and light setup for creators.',
-    tableHeaders: ['Category', 'Compatibility', 'Setup Time', 'Warranty', 'Starting Price'],
+    tableHeaders: ['Category', 'Compatibility', 'Setup Time', 'Support', 'Starting Price'],
     tableRows: [
-      ['Wireless Microphones', 'iOS, Android, PC', '< 1 Minute', '6 Months Free Warranty', '₹1,499'],
-      ['Ring Light & Tripod', 'Universal Phone Mount', '< 2 Minutes', '6 Months Free Warranty', '₹1,299'],
+      ['Wireless Microphones', 'iOS, Android, PC', '< 1 Minute', 'Dedicated Tech Support', '₹1,499'],
+      ['Ring Light & Tripod', 'Universal Phone Mount', '< 2 Minutes', 'Dedicated Tech Support', '₹1,299'],
     ]
   },
 
@@ -392,7 +391,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Multi-Channel Support', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Up to 4K Recording', icon: Eye, color: 'text-[#082f89]' },
       { label: 'H.265+ Compression', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Recording Systems' },
@@ -423,7 +422,7 @@ const CATEGORY_CONFIGS = {
       { label: 'IP66 Weatherproof', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Infrared Night Vision', icon: Eye, color: 'text-[#082f89]' },
       { label: 'Motion Detection', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Bullet & Dome' },
@@ -454,7 +453,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Remote Engine Lock', icon: Lock, color: 'text-[#f00102]' },
       { label: 'Ignition Status Alerts', icon: Zap, color: 'text-[#082f89]' },
       { label: 'Geofence Boundaries', icon: ShieldCheck, color: 'text-[#01a345]' },
-      { label: '6 Months Warranty', icon: Radio, color: 'text-[#FF9933]' },
+      { label: 'Dedicated Support', icon: Radio, color: 'text-[#FF9933]' },
     ],
     tabs: [
       { id: 'all', label: 'All Wired GPS' },
@@ -462,16 +461,16 @@ const CATEGORY_CONFIGS = {
     matchProduct: (p) => p.name.toLowerCase().includes('gps wire') || p.name.toLowerCase().includes('engine lock') || (p.category === 'gps-trackers' && p.name.toLowerCase().includes('wire')),
     faqs: [
       {
-        q: 'Does installing a wired GPS tracker void my vehicle’s warranty?',
-        a: 'No, the installation uses standard relay couplers and does not involve cutting the main wiring harness, keeping your warranty safe.',
+        q: 'Is installing a wired GPS tracker safe for my vehicle’s electrical system?',
+        a: 'Yes, the installation uses standard relay couplers and does not involve cutting the main wiring harness, keeping your vehicle’s electrical system completely safe and secure.',
       },
     ],
     tableTitle: 'Wired GPS Tracker Features',
     tableSubtitle: 'Hardwired safety systems for cars, bikes, and trucks.',
-    tableHeaders: ['Model Name', 'Engine Lock', 'Audio Monitoring', 'Warranty', 'Price'],
+    tableHeaders: ['Model Name', 'Engine Lock', 'Audio Monitoring', 'Support', 'Price'],
     tableRows: [
-      ['GPS Wire with Engine Lock', '✓ Yes', 'No', '6 Months Free', '₹1,999'],
-      ['GPS Wire Audio & Engine Lock', '✓ Yes', '✓ Yes', '6 Months Free', '₹2,499'],
+      ['GPS Wire with Engine Lock', '✓ Yes', 'No', 'Lifetime Support', '₹1,999'],
+      ['GPS Wire Audio & Engine Lock', '✓ Yes', '✓ Yes', 'Lifetime Support', '₹2,499'],
     ]
   },
 
@@ -516,7 +515,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Fingerprint + RFID', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Attendance Reports', icon: Zap, color: 'text-[#082f89]' },
       { label: 'Wiegand Interface', icon: Radio, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Biometrics' },
@@ -546,7 +545,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Fingerprint Handle', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Passcode & Card Lock', icon: Lock, color: 'text-[#f00102]' },
       { label: 'Emergency Key Access', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Radio, color: 'text-[#082f89]' },
+      { label: 'Dedicated Support', icon: Radio, color: 'text-[#082f89]' },
     ],
     tabs: [
       { id: 'all', label: 'All Smart Locks' },
@@ -560,9 +559,9 @@ const CATEGORY_CONFIGS = {
     ],
     tableTitle: 'Smart Door Lock Specifications',
     tableSubtitle: 'Durable smart handles for maximum access security.',
-    tableHeaders: ['Finish Style', 'Lock Methods', 'Battery Type', 'Warranty', 'Price'],
+    tableHeaders: ['Finish Style', 'Lock Methods', 'Battery Type', 'Support', 'Price'],
     tableRows: [
-      ['Matte Black / Copper', 'Fingerprint, PIN, RFID, Key', '4x AA Batteries', '6 Months Free', '₹5,999'],
+      ['Matte Black / Copper', 'Fingerprint, PIN, RFID, Key', '4x AA Batteries', 'Lifetime Support', '₹5,999'],
     ]
   },
 
@@ -576,7 +575,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Multi-Line Routing', icon: Radio, color: 'text-[#01a345]' },
       { label: 'Extension Dialling', icon: Zap, color: 'text-[#082f89]' },
       { label: 'Music on Hold', icon: ShieldCheck, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All EPBx Systems' },
@@ -590,9 +589,9 @@ const CATEGORY_CONFIGS = {
     ],
     tableTitle: 'EPBx Systems Exchange Specs',
     tableSubtitle: 'PBX networks for office telephone management.',
-    tableHeaders: ['Outside Lines', 'Extension Ports', 'Feature Support', 'Warranty', 'Price'],
+    tableHeaders: ['Outside Lines', 'Extension Ports', 'Feature Support', 'Support', 'Price'],
     tableRows: [
-      ['8 Lines', '16 Extensions', 'Transfer, Forward, Hold', '6 Months', '₹8,999'],
+      ['8 Lines', '16 Extensions', 'Transfer, Forward, Hold', 'Lifetime Support', '₹8,999'],
     ]
   },
 
@@ -606,7 +605,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Clear Voice Intercom', icon: Mic, color: 'text-[#01a345]' },
       { label: 'Universal Compatibility', icon: ShieldCheck, color: 'text-[#082f89]' },
       { label: 'Speed Dial Buttons', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Intercom Phones' },
@@ -636,7 +635,7 @@ const CATEGORY_CONFIGS = {
       { label: 'DVR / NVR Recording', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: '4G & WiFi Ready', icon: Radio, color: 'text-[#082f89]' },
       { label: 'AI Motion Detection', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All CCTV' },
@@ -677,8 +676,8 @@ const CATEGORY_CONFIGS = {
     iconBadges: [
       { label: 'Genuine RGMS Parts', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Complete Kits Available', icon: Zap, color: 'text-[#082f89]' },
-      { label: 'Free Shipping India', icon: Radio, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: Lock, color: 'text-[#f00102]' },
+      { label: 'Express Delivery India', icon: Radio, color: 'text-[#FF9933]' },
+      { label: 'Dedicated Support', icon: Lock, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Accessories' },
@@ -719,7 +718,7 @@ const CATEGORY_CONFIGS = {
       { label: 'Biometric Fingerprint', icon: ShieldCheck, color: 'text-[#01a345]' },
       { label: 'Smart Door Lock', icon: Lock, color: 'text-[#f00102]' },
       { label: 'Attendance System', icon: Zap, color: 'text-[#082f89]' },
-      { label: '6 Months Warranty', icon: Radio, color: 'text-[#FF9933]' },
+      { label: 'Dedicated Support', icon: Radio, color: 'text-[#FF9933]' },
     ],
     tabs: [
       { id: 'all', label: 'All Access Control' },
@@ -756,7 +755,7 @@ const CATEGORY_CONFIGS = {
       { label: 'EPBx / PABX Systems', icon: Radio, color: 'text-[#01a345]' },
       { label: 'TG Phone Handsets', icon: Mic, color: 'text-[#082f89]' },
       { label: 'Multi-Extension', icon: Zap, color: 'text-[#FF9933]' },
-      { label: '6 Months Warranty', icon: ShieldCheck, color: 'text-[#f00102]' },
+      { label: 'Dedicated Support', icon: ShieldCheck, color: 'text-[#f00102]' },
     ],
     tabs: [
       { id: 'all', label: 'All Intercom' },
@@ -812,24 +811,24 @@ const getCategoryConfig = (slug) => {
     name: formattedName || 'Products',
     badge: 'Official RGMS Collection',
     title: `${formattedName || 'Smart Products'} & Security Solutions`,
-    description: `Explore RGMS top-rated ${formattedName || 'smart devices'} with official 6 months warranty, free shipping across India, and dedicated tech support.`,
+    description: `Explore RGMS top-rated ${formattedName || 'smart devices'} with dedicated customer support, express delivery across India, and certified quality.`,
     whatsappTopic: formattedName || 'Products',
     iconBadges: [
       { label: 'Official RGMS Product', icon: ShieldCheck, color: 'text-[#01a345]' },
-      { label: '6 Months Warranty', icon: Zap, color: 'text-[#082f89]' },
-      { label: 'Free Shipping', icon: Radio, color: 'text-[#FF9933]' },
+      { label: 'Dedicated Support', icon: Zap, color: 'text-[#082f89]' },
+      { label: 'Express Delivery', icon: Radio, color: 'text-[#FF9933]' },
     ],
     tabs: [{ id: 'all', label: `All ${formattedName || 'Products'}` }],
     matchProduct: (p) => p.name.toLowerCase().includes(normalized.replace('-', ' ')) || p.name.toLowerCase().includes(normalized.split('-')[0]),
     faqs: [
       {
-        q: 'Does this product come with warranty?',
-        a: 'Yes, all RGMS products come with 6 Months Free Manufacturer Warranty and 7 days replacement guarantee.',
+        q: 'Is customer support available for this product?',
+        a: 'Yes, all RGMS products include lifetime dedicated technical support and assistance.',
       }
     ],
     tableTitle: `Compare ${formattedName} Features`,
     tableSubtitle: 'Quality smart devices for modern Indian homes and businesses.',
-    tableHeaders: ['Product Name', 'Highlights', 'Warranty', 'Price'],
+    tableHeaders: ['Product Name', 'Highlights', 'Support', 'Price'],
     tableRows: []
   };
 };
@@ -1034,7 +1033,7 @@ export const CategoryPage = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-black text-[#07152e]">Available {config.name} Models</h2>
-            <p className="text-xs text-[#64748b] font-medium mt-1">Showing {filteredProducts.length} models with 6 months warranty & free shipping</p>
+            <p className="text-xs text-[#64748b] font-medium mt-1">Showing {filteredProducts.length} premium models with dedicated customer support</p>
           </div>
           <Link to="/" className="text-xs font-extrabold text-[#082f89] hover:underline flex items-center gap-1">
             <ArrowLeft size={14} /> Back to Homepage
@@ -1091,9 +1090,6 @@ export const CategoryPage = () => {
 
               {/* Key Highlights list */}
               <div className="my-3 space-y-1 border-t border-slate-100 pt-2.5 text-[11px] text-[#64748b]">
-                <p className="flex items-center gap-1.5 font-semibold text-[#082f89]">
-                  <CheckCircle2 size={13} className="text-[#01a345]" /> Official RGMS 6 Month Warranty
-                </p>
                 {product.name.toLowerCase().includes('lock') && (
                   <p className="flex items-center gap-1.5 font-semibold text-[#f00102]">
                     <CheckCircle2 size={13} className="text-[#f00102]" /> Remote Engine Lock/Cutoff
@@ -1325,10 +1321,8 @@ export const CategoryPage = () => {
                 <div className="bg-[#f8fafc] rounded-2xl p-4 border border-slate-100 space-y-2.5">
                   <p className="text-[11px] font-black text-[#082f89] uppercase tracking-wider">Key Highlights:</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#1e293b] font-semibold">
-                    <div className="flex items-center gap-2"><CheckCircle2 size={15} className="text-[#01a345] shrink-0" /> 6 Months Official Warranty</div>
-                    <div className="flex items-center gap-2"><CheckCircle2 size={15} className="text-[#01a345] shrink-0" /> Free Express Delivery India</div>
                     <div className="flex items-center gap-2"><CheckCircle2 size={15} className="text-[#01a345] shrink-0" /> 2-Min DIY Easy Mobile Setup</div>
-                    <div className="flex items-center gap-2"><CheckCircle2 size={15} className="text-[#01a345] shrink-0" /> 7-Day Instant Replacement</div>
+                    <div className="flex items-center gap-2"><CheckCircle2 size={15} className="text-[#01a345] shrink-0" /> 24/7 Dedicated Tech Support</div>
                   </div>
                 </div>
 
@@ -1393,8 +1387,8 @@ export const CategoryPage = () => {
                       <td className="py-3 px-4 font-semibold text-[#334155]">IP66 Dustproof & Waterproof Heavy-Duty Enclosure</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-bold text-[#07152e]">Warranty & Support</td>
-                      <td className="py-3 px-4 font-semibold text-[#334155]">6 Months Official RGMS Warranty + 24/7 Tech Support</td>
+                      <td className="py-3 px-4 font-bold text-[#07152e]">Tech Support</td>
+                      <td className="py-3 px-4 font-semibold text-[#334155]">24/7 Lifetime Support via WhatsApp & Phone</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1405,7 +1399,7 @@ export const CategoryPage = () => {
             <div className="mt-8 bg-[#e8eeff]/50 rounded-2xl p-5 border border-[#082f89]/15">
               <h5 className="text-xs font-black text-[#082f89] uppercase tracking-wider mb-2">Package Contents (In The Box):</h5>
               <p className="text-xs text-[#334155] font-medium leading-relaxed">
-                1x {selectedProduct.name} Main Unit • 1x Heavy-Duty Power Adapter & Cable • 1x Mounting Bracket & Screw Kit • 1x Quick Start Guide • 1x Official Warranty Certificate
+                1x {selectedProduct.name} Main Unit • 1x Heavy-Duty Power Adapter & Cable • 1x Mounting Bracket & Screw Kit • 1x Quick Start Guide
               </p>
             </div>
           </div>

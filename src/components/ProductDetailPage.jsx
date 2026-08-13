@@ -83,7 +83,7 @@ export const ProductDetailPage = () => {
     <div className="min-h-screen bg-[#f8fafc] text-[#07152e]">
       <SEO 
         title={`${product.name} | RGMS Official Store`}
-        description={product.description || `Buy ${product.name} at best price in India with 6 Months Free Warranty & Express Delivery.`}
+        description={product.description || `Buy ${product.name} at best price in India with Express Delivery.`}
         canonical={`/product/${convertToSlug(product.name)}-${product.id}`}
       />
       <Header />
@@ -315,7 +315,7 @@ export const ProductDetailPage = () => {
                 {product.description || 'The RGMS Smart Security Device is engineered with cutting-edge AI technology to provide comprehensive protection for Indian homes, offices, and vehicles. Equipped with full HD video clarity, wide-angle surveillance, and remote smartphone connectivity.'}
               </p>
               <p>
-                With effortless 2-minute Do-It-Yourself (DIY) setup, zero technician required, and official 6 Months Free Warranty, RGMS brings unmatched reliability and peace of mind to over 5,000+ protected premises across India.
+                With effortless 2-minute Do-It-Yourself (DIY) setup, zero technician required, RGMS brings unmatched reliability and peace of mind to over 5,000+ protected premises across India.
               </p>
             </div>
           )}
@@ -334,10 +334,7 @@ export const ProductDetailPage = () => {
                 <span className="font-extrabold text-slate-500">Category</span>
                 <span className="font-bold text-[#07152e] uppercase">{product.category}</span>
               </div>
-              <div className="bg-[#f8fafc] p-3.5 rounded-xl border border-slate-200 flex justify-between">
-                <span className="font-extrabold text-slate-500">Warranty</span>
-                <span className="font-black text-[#01a345]">6 Months Official Free Warranty</span>
-              </div>
+
               <div className="bg-[#f8fafc] p-3.5 rounded-xl border border-slate-200 flex justify-between">
                 <span className="font-extrabold text-slate-500">Installation</span>
                 <span className="font-bold text-[#07152e]">DIY 2-Minute Setup</span>
@@ -355,10 +352,7 @@ export const ProductDetailPage = () => {
                 <p className="font-black text-[#082f89]">Q: Does this RGMS product require professional installation?</p>
                 <p className="text-slate-600 font-medium leading-relaxed">A: No! All RGMS products are engineered for 2-minute Do-It-Yourself (DIY) plug-and-play setup. Step-by-step video help is available over WhatsApp.</p>
               </div>
-              <div className="bg-[#f8fafc] rounded-2xl p-4 border border-slate-200 space-y-1">
-                <p className="font-black text-[#082f89]">Q: How does the 6 Months Free Warranty work?</p>
-                <p className="text-slate-600 font-medium leading-relaxed">A: Warranty is automatically activated on your order date. If you experience any technical issue, our team provides free replacement and support.</p>
-              </div>
+
               <div className="bg-[#f8fafc] rounded-2xl p-4 border border-slate-200 space-y-1">
                 <p className="font-black text-[#082f89]">Q: How long does delivery take?</p>
                 <p className="text-slate-600 font-medium leading-relaxed">A: Orders are dispatched via Express Delivery within 24 hours. Delivery takes 2–4 business days across India.</p>

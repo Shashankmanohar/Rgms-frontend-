@@ -53,8 +53,8 @@ export const ContactPage = () => {
       a: 'All RGMS smart security devices and GPS trackers are engineered for DIY (Do-It-Yourself) 2-minute setup. Our tech team also provides live step-by-step video guidance over WhatsApp or phone call whenever needed.'
     },
     {
-      q: 'How do I claim or register warranty for my product?',
-      a: 'Every RGMS product comes with 6 Months Free Warranty automatically activated on purchase. You can contact our support team with your order ID or phone number to process replacement or warranty claims seamlessly.'
+      q: 'How can I get technical assistance for my product?',
+      a: 'We provide free technical assistance for all our products. You can reach out to our customer care and tech support team via WhatsApp or call, and we will help you resolve any issues instantly.'
     },
     {
       q: 'Interested in becoming a RGMS dealer or distributor?',
@@ -269,7 +269,7 @@ export const ContactPage = () => {
                         <option value="General Inquiry">General Inquiry</option>
                         <option value="GPS Tracker Help">GPS Tracker Advice</option>
                         <option value="Camera Setup Support">CCTV Camera Installation</option>
-                        <option value="Order Status & Warranty">Order Status & Warranty</option>
+                        <option value="Order Status & Support">Order Status & Support</option>
                         <option value="Bulk Order / Dealer Inquiry">Bulk Order / Dealer Partnership</option>
                       </select>
                     </div>

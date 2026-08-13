@@ -24,9 +24,9 @@ export const faqsList = [
     a: 'Yes! RGMS 4G Solar Surveillance Cameras feature built-in high-capacity rechargeable batteries powered by an industrial-grade solar panel. They connect to the internet using a standard 4G SIM card (Jio, Airtel, Vi), making them 100% wire-free and independent of electric power or local WiFi.',
   },
   {
-    category: 'Warranty & Support',
-    q: 'What warranty and customer support do you offer across India?',
-    a: 'Every RGMS product includes a 6-Month Hassle-Free Replacement Warranty. We have dedicated customer care and technical support operating across 500+ Indian cities, accessible via WhatsApp (+91 7707 019 501) or direct phone support.',
+    category: 'Customer Support',
+    q: 'What customer support channels do you offer across India?',
+    a: 'We provide dedicated customer care and live technical support operating across 500+ Indian cities. You can easily reach our team via WhatsApp (+91 7707 019 501) or direct phone call for help with device setup or usage.',
   },
   {
     category: 'Privacy & Security',
@@ -40,7 +40,7 @@ export const faqsList = [
   },
 ];
 
-const categories = ['All', 'General', 'Cameras', 'GPS Trackers', 'Solar & 4G', 'Warranty & Support'];
+const categories = ['All', 'General', 'Cameras', 'GPS Trackers', 'Solar & 4G', 'Customer Support'];
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
@@ -78,7 +78,7 @@ const FAQSection = () => {
             Frequently Asked <span className="text-[#082f89]">Questions</span>
           </h2>
           <p className="text-sm text-[#64748b] mt-3 font-medium">
-            Everything you need to know about RGMS Smart Security Cameras, GPS Trackers, Solar setups & Warranty.
+            Everything you need to know about RGMS Smart Security Cameras, GPS Trackers, Solar setups & dedicated support.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ const FAQSection = () => {
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search any question (e.g. warranty, installation, GPS lock, 4G SIM)..."
+              placeholder="Search any question (e.g. support, installation, GPS lock, 4G SIM)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-11 pr-4 py-3.5 bg-white rounded-2xl border border-slate-200 shadow-sm text-xs sm:text-sm text-[#07152e] focus:outline-none focus:border-[#082f89] focus:ring-2 focus:ring-[#082f89]/10 transition-all placeholder:text-slate-400 font-medium"
@@ -123,7 +123,7 @@ const FAQSection = () => {
             <div className="bg-white rounded-2xl p-8 text-center text-slate-500 border border-slate-200">
               <HelpCircle size={32} className="mx-auto text-slate-400 mb-2" />
               <p className="text-sm font-bold text-[#07152e]">No questions found matching your search.</p>
-              <p className="text-xs text-slate-500 mt-1">Try searching for keywords like &quot;warranty&quot;, &quot;GPS&quot;, or &quot;solar&quot;.</p>
+              <p className="text-xs text-slate-500 mt-1">Try searching for keywords like &quot;support&quot;, &quot;GPS&quot;, or &quot;solar&quot;.</p>
             </div>
           ) : (
             filteredFaqs.map((faq, idx) => {

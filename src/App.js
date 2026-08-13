@@ -27,7 +27,7 @@ const Home = () => (
   <div className="min-h-screen bg-white overflow-x-hidden">
     <SEO 
       title="RGMS Smarthome & Security | Smart AI CCTV Cameras & GPS Trackers"
-      description="Shop RGMS smart security cameras, 4G solar surveillance, vehicle GPS trackers with remote engine lock, and 4K smart projectors. Free shipping across India & 6 months warranty."
+      description="Shop RGMS smart security cameras, 4G solar surveillance, vehicle GPS trackers with remote engine lock, and 4K smart projectors. Express shipping and dedicated support across India."
       canonical="/"
     />
     <Header />
